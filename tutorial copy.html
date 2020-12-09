@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TopMSV</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="xiaowen" >
+
+  <link href="lib/bootstrap.css" rel="stylesheet">
+  <link href="public/css/style.css" rel="stylesheet">
+  <link href="lib/bootstrap-responsive.css" rel="stylesheet">
+  <link rel="shortcut icon" href="toppic.ico">
+</head>
+
+<body style="overflow-y:scroll">
+
+<div class="container">
+
+  <div class="masthead">
+    <h2 class="muted"><font color=#0066DD>TopPIC Suite</font></h2>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="tutorial.html">Tutorial</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- /.navbar -->
+  </div><!-- /.masthead -->
+
+  <div class="row-fluid" style="font-size:16px">
+
+    <div class="span-12">
+
+      <h3>1 Installation Guide</h3>
+      <ol class="textList">
+        <li>Go to the <a href = "index.html">Home</a> page of TopMSV.</li>
+        <li>Fill out the registration form, and click "I accept license agreement and download
+          TopMSV" to download it.</li>
+        <li>Extract all the files of the downloaded zip file to a custom folder in local drive.
+        <li>Install dependencies using the code below:</br>
+        <pre># install compiling tools
+sudo apt-get install build-essential cmake</br>
+# install other dependencies
+sudo apt-get install zlib1g-dev libboost-filesystem-dev \
+libboost-program-options-dev \
+libboost-system-dev \
+libboost-thread-dev \
+libboost-iostreams-dev \
+libboost-chrono-dev \
+libxalan-c-dev
+sudo apt-get install nodejs
+sudo apt-get install npm
+
+# install npm dependencies
+npm install</pre></li>
+        <li>Build mzMLReader program inside cpp folder:
+          <pre># building cpp program and back to app root folder
+cd cpp/build
+cmake ..
+make -j$(nproc)
+cd ../..</pre>
+        </li>
+        <li>Build TopFD and TopPIC for spectral deconvolution protein identification:
+          <pre>cd proteomics_cpp
+mkdir build
+cd build
+cmake ..
+make -j$(nproc)</br>
+cd ../bin
+ln -s ../toppic_resources .</pre>
+        </li>
+        <li>Install dependencies for a subfolder:
+          <pre># go to public/resources/topview and install dependencies for this folder
+cd public/resources/topview
+npm install
+cd ../../..</pre>
+        </li>
+        <li>Start the server. 
+          <pre>npm start</pre>
+        </li>
+        <li>Open Chrome browser and visit <a href="http://localhost:8443/">http://localhost:8443/</a> to start using TopMSV.</li>
+        <br>
+    </ol>
+
+      <hr>
+
+      <h3>2 Tutorial</h3>
+      <h4 class="sectionTitle">2.1 Top-down MS/MS Dataset</h4>
+      <p>
+        In the MS experiment, the protein extract of S. typhimurium was reduced with dithiothreitol and alkylated with iodoacetamide.
+        The protein mixture was first separated by gas-phase fractionation, resulting in 7 fractions.
+        Each fraction was separated by an HPLC system coupled to an LTQ-Orbitrap mass spectrometer (Thermo Fisher Scientific).
+        MS and MS/MS spectra were collected at a resolution of 60,000 and 30,000, respectively. In this tutorial, we use only the data file
+        of one fraction, which is converted to mzML file (st_1.mzML) using msconvert from ProteoWizard.
+      </p>
+      <p>Click <a href="./data_files/tutorial-1-raw.zip">here</a>
+        to download the dataset, save it in the local folder and unzip it.</p>
+
+      <h4 class="sectionTitle">4.4 Mass spectral deconvolution</h4>
+
+      <p>We use <b>topfd_gui</b> for top-down mass spectral deconvolution.</p>
+      <ol class="textList">
+        <li> Double click the executable file <code>topfd_gui.exe</code> in the folder
+          <code>C:\toppic_tutorial\toppic</code>.</li>
+        <li> Add the file <code>c:\toppic_tutorial\tutorial_1\st_1.mzML</code>
+          and <code>c:\toppic_tutorial\tutorial_1\st_2.mzML</code> as input files.</li>
+        <li> Click to the button "Start" to deconvolute the file.</li>
+      </ol>
+      <p>
+        The screenshot of <code>topfd_gui</code> is shown below.
+      </p>
+
+      <p><img src="./images/topfd_1.png" height="400" width="600"
+              style="border: #00008B 1px solid;"/>
+      </p>
+
+      <p>TopFD reports eight text files and four folders.</p>
+	  
+      <ol class="textList">
+        <li>Two msalign files containing deconvoluted MS/MS spectra:
+          <pre>C:\toppic_tutorial\tutorial_1\st_1_ms2.msalign</pre>
+          <pre>C:\toppic_tutorial\tutorial_1\st_2_ms2.msalign</pre></li>
+        <li>Four text files containing LC/MS features:
+          <pre>C:\toppic_tutorial\tutorial_1\st_1_ms1.feature</pre>
+          <pre>C:\toppic_tutorial\tutorial_1\st_1_ms2.feature</pre>
+          <pre>C:\toppic_tutorial\tutorial_1\st_2_ms1.feature</pre>
+          <pre>C:\toppic_tutorial\tutorial_1\st_2_ms2.feature</pre></li>
+		  <li>Two xml files containing LC/MS features:
+			<pre>C:\toppic_tutorial\tutorial_1\st_1_feature.xml</pre>
+			<pre>C:\toppic_tutorial\tutorial_1\st_2_feature.xml</pre></li>
+		  <li>Two folders containing deconvoluted MS/MS spectra in the javascript format
+		    <pre>C:\toppic_tutorial\tutorial_1\st_1_html</pre>
+		    <pre>C:\toppic_tutorial\tutorial_1\st_2_html</pre></li>
+		  <li>Two folders containing a msalign file for MS1 spectra and a csv file for its mzRT features 
+		    <pre>C:\toppic_tutorial\tutorial_1\st_1_file</pre>
+		    <pre>C:\toppic_tutorial\tutorial_1\st_2_file</pre></li>
+      </ol>
+      <p>
+        The output files and folders can be downloaded
+        <a href="./data_files/tutorial-1-msalign.zip">here</a>.
+        <!--The running time of TopFD is about 6 minutes. -->
+      </p>
+
+      <h4 class="sectionTitle">4.5 Mass spectral identification using TopPIC</h4>
+      <p>We use <b>toppic_gui</b> to search the MS/MS spectra in
+        <code>st_1_ms2.msalign</code> and <code>st_2_ms2.msalign</code>
+        against the protein database <code>uniprot-st.fasta</code> to
+        identify PrSMs.
+      </p>
+      <ol class="textList">
+        <li> Double click the executable file <code>toppic_gui.exe</code> in the folder
+          <code>C:\toppic_tutorial\toppic</code>.</li>
+        <li> Select <code>C:\toppic_tutorial\tutorial_1\uniprot-st.fasta</code> as the protein
+          database file.</li>
+        <li> Add <code>C:\toppic_tutorial\tutorial_1\st_1_ms2.msalign</code>
+          and <code>C:\toppic_tutorial\tutorial_1\st_2_ms2.msalign</code> as
+          mass spectrum data files. </li>
+        <li> Input "combined" as the file name for combined identifications.</li>
+        <li> Select <code>C57</code> as the fixed modification. </li>
+        <li> Check the checkbox <code>Decoy database</code>. </li>
+        <li> Select <code>FDR</code> as the spectrum level cutoff type. </li>
+        <li> Select <code>FDR</code> as the proteoform level cutoff type. </li>
+        <li> Click to the button "Start"</li>
+      </ol>
+      <p>
+        The screenshots of <code>toppic_gui</code> are shown below.
+      </p>
+
+      <p><img src="./images/toppic_2.png" height="400" width="600" style="border: #00008B 1px solid;"/>
+      </p>
+
+      <p><img src="./images/toppic_3.png" height="400" width="600" style="border: #00008B 1px solid;"/>
+      </p>
+
+      <p>For each input msalign file, TopPIC reports two tsv files, an xml file, and collections of html
+        files for identified proteoforms. For example, the output files for st_1_ms2.msalign are
+      <ul>
+        <li>A tsv file containing identified PrSMs with a 1% spectrum level FDR:
+          <pre>C:\toppic_tutorial\tutorial_1\st_1_ms2_toppic_prsm.tsv</pre>
+        </li>
+        <li> A tsv file containing identified proteoforms and
+          their best PrSMs with a 1% proteoform level FDR:
+          <pre>C:\toppic_tutorial\tutorial_1\st_1_ms2_toppic_proteoform.tsv</pre>
+        </li>
+        <li> An xml file containing identified proteoforms and
+          their best PrSMs with a 1% proteoform level FDR:
+          <pre>C:\toppic_tutorial\tutorial_1\st_1_ms2_toppic_proteoform.xml</pre>
+        </li>
+        <li>A folder containing javascript files of identified PrSMs with a 1% spectrum
+          level FDR:
+          <pre>C:\toppic_tutorial\tutorial_1\st_1_html\toppic_prsm_cutoff</pre>
+        </li>
+        <li>
+          A folder containing javascript files of identified PrSMs with a 1%
+          proteoform level FDR:
+          <pre>C:\toppic_tutorial\tutorial_1\st_1_html\toppic_proteoform_cutoff</pre>
+        </li>
+		<li>
+          A folder containing html files for the visualization of identified
+          PrSMs:
+          <pre>C:\toppic_tutorial\tutorial_1\st_1_html\topview</pre>
+        </li>
+      </ul>
+      </p>
+      <p>In addition, the identifications reported for st_1_ms2.msalign and st_2_ms2.msalign are
+        combined, and filtered by a 1% spectrum-level FDR and a 1% proteoform level FDR. The combined results are reported in the following files.
+      <ul>
+        <li>A tsv file containing combined PrSM identifications with a 1% spectrum level FDR:
+          <pre>C:\toppic_tutorial\tutorial_1\combined_ms2_toppic_prsm.tsv</pre>
+        </li>
+        <li> A tsv file containing combined proteoform identifications and
+          their best PrSMs with a 1% proteoform level FDR:
+          <pre>C:\toppic_tutorial\tutorial_1\combined_ms2_toppic_proteoform.tsv</pre>
+        </li>
+        <li> An xml file containing combined proteoform identifications and
+          their best PrSMs with a 1% proteoform level FDR:
+          <pre>C:\toppic_tutorial\tutorial_1\combined_ms2_toppic_proteoform.xml</pre>
+        </li>
+        <li>A folder containing javascript files of combined PrSM identifications with a 1% spectrum
+          level FDR:
+          <pre>C:\toppic_tutorial\tutorial_1\combined_html\toppic_prsm_cutoff</pre>
+        </li>
+        <li>
+          A folder containing javascript files of combined PrSM identifications with a 1%
+          proteoform level FDR:
+          <pre>C:\toppic_tutorial\tutorial_1\combined_html\toppic_proteoform_cutoff</pre>
+        </li>
+		<li>
+          A folder containing html files for the visualization of identified
+          PrSMs: 
+          <pre>C:\toppic_tutorial\tutorial_1\combined_html\topview</pre>
+        </li>
+      </ul>
+      </p>
+
+      <p> In the analysis, C57 is selected as the fixed modification because
+        proteins were reduced with dithiothreitol and alkylated with
+        iodoacetamide before the MS experiment. When proteins are not reduced, C0
+        should be selected.
+      </p>
+
+      <p>
+        A shuffled decoy database is concatenated
+        to the target database to estimate spectrum level and proteoform level
+        FDRs. All identified PrSMs are first filtered by a
+        1% spectrum level FDR and the resulting PrSMs are reported in the
+        file <code>combined_ms2_toppic_prsm.tsv</code>. The proteoforms corresponding to the PrSMs
+        are further filtered using a 1% proteoform level FDR and
+        the resulting proteoforms and their corresponding best PrSMs are reported in the file
+        <code>combined_ms2_toppic_proteoform.tsv</code>. Microsoft Excel can be used to open these two files.
+        To browse the PrSM identifications, 
+        go to the folder <code>combined_html\topview</code> and use <b>Google
+        Chrome</b> (Windows IE and Firefox are not recommended) 
+        to open the file index.html. 
+      </p>
+
+      <p>
+        The output files can be downloaded
+        <!-- <a href="filedownload.php?filename=./data_files/st-result.zip">here</a>.-->
+        <a href="./data_files/tutorial-1-result.zip">here</a>.
+        <!-- The running time of TopPIC is about 5 minutes. -->
+      </p>
+
+      <h4 class="sectionTitle">4.6 Data analysis using the command line interface</h4>
+
+      <h4>4.6.1 Index files generation</h4>
+      <p>We use <b>topindex</b> to generate index files from the protein database <code>uniprot-st.fasta</code> 
+        to speed up the processing of TopPIC and TopMG.
+      </p>
+
+      <h4>File locations</h4>
+      <ol class="textList">
+        <li>Executable file: <pre>C:\toppic_tutorial\toppic\topindex.exe</pre></li>
+        <li>Input mzML file: <pre>C:\toppic_tutorial\tutorial_1\uniprot-st.fasta</pre></li>
+      </ol>
+      <h4>Commands</h4>
+      <div class="command-container" id="cmd1Container">
+        <pre id="cmd1">cd c:\toppic_tutorial\tutorial_1</pre><button class="copyBtn" onclick="copyToClipboard('cmd1')">Copy</button>
+      </div>
+      <div class="command-container" id="cmd2Container">
+        <pre id="cmd2">..\toppic\topindex -f C57 -d uniprot-st.fasta </pre><button class="copyBtn" onclick="copyToClipboard('cmd2')">Copy</button>
+      </div>
+
+      <h4>4.6.2 Mass spectral deconvolution</h4>
+
+      <p>We use <b>topfd</b> for top-down mass spectral deconvolution.</p>
+
+      <h4>File locations</h4>
+      <ol class="textList">
+        <li>Executable file: <pre>C:\toppic_tutorial\toppic\topfd.exe</pre></li>
+        <li>Input mzML file: <pre>C:\toppic_tutorial\tutorial_1\st_1.mzML</pre>
+          <pre>C:\toppic_tutorial\tutorial_1\st_2.mzML</pre>
+        </li>
+      </ol>
+      <h4>Commands</h4>
+      <div class="command-container" id="cmd1Container">
+        <pre id="cmd1">cd c:\toppic_tutorial\tutorial_1</pre><button class="copyBtn" onclick="copyToClipboard('cmd1')">Copy</button>
+      </div>
+      <div class="command-container" id="cmd2Container">
+        <pre id="cmd2">..\toppic\topfd st_*.mzML</pre><button class="copyBtn" onclick="copyToClipboard('cmd2')">Copy</button>
+      </div>
+      <!--
+    <p>The screenshot below shows the console output of the above command.</li>
+    <p><img src="" height="250" width="500" border="1.5"/></p>
+    -->
+      <h4>4.6.3 Mass spectral identification using TopPIC</h4>
+
+      <p>We use <b>toppic</b> to search the MS/MS spectra in <code>st_1_ms2.msalign</code>
+        and <code>st_2_ms2.msalign</code>
+        against the protein database <code>uniprot-st.fasta</code> to identify PrSMs.
+      </p>
+      <h4>File locations</h4>
+      <ol class="textList">
+        <li>Executable file: <pre>C:\toppic_tutorial\toppic\toppic.exe</pre></li>
+        <li>Input protein database file:
+          <pre>C:\toppic_tutorial\tutorial_1\uniprot-st.fasta</pre></li>
+        <li>Input MS/MS msalign files: <pre>C:\toppic_tutorial\tutorial_1\st_1_ms2.msalign</pre>
+          <pre>C:\toppic_tutorial\tutorial_1\st_2_ms2.msalign</pre>
+        </li>
+        <li>Input feature files: 
+		  <pre>C:\toppic_tutorial\tutorial_1\st_1_ms1.feature</pre>
+		  <pre>C:\toppic_tutorial\tutorial_1\st_1_ms2.feature</pre>
+		  <pre>C:\toppic_tutorial\tutorial_1\st_2_ms1.feature</pre>
+          <pre>C:\toppic_tutorial\tutorial_1\st_2_ms2.feature</pre>
+        </li>
+      </ol>
+      <h4>Commands</h4>
+      <div class="command-container" id="cmd3Container">
+        <pre id="cmd3">cd c:\toppic_tutorial\tutorial_1</pre>
+        <button class="copyBtn" onclick="copyToClipboard('cmd3')">Copy</button>
+      </div>
+      <div class="command-container" id="cmd4Container">
+        <pre id="cmd4">..\toppic\toppic -f C57 -d -t FDR -T FDR -c combined uniprot-st.fasta st_*_ms2.msalign</pre>
+        <button class="copyBtn" onclick="copyToClipboard('cmd4')">Copy</button>
+      </div>
+      <!--
+    <p>The screenshot below shows the console output of the above command.</li>
+    <p><img src="" height="250" width="500" border="1.5"/></p>
+    -->
+
+      <hr>
+
+      <h3>5 Tutorial 2</h3>
+      <p>
+        We will use TopMG to analyze the data set st_1.raw described in Tutorial 1.
+        <b><font color=#FF0000> TopMG is still in the development stage. Please let us know
+          if you find any bugs in it.</font></b>.
+      </p>
+      <h4 class="sectionTitle">5.1 Data set and preprocessing </h4>
+      The description of the data file and
+      its preprocessing steps can be found in Sections 4.1 - 4.4.
+      Click
+      <a href="./data_files/tutorial-2-data.zip">here</a>
+      to download the data files used in the
+      analysis, save it in the folder <code>C:\toppic_tutorial\tutorial_2\</code>, and
+      unzip it. It includes the following files.
+      <ul>
+        <li>A S. typhrimurium protein database file:
+          <pre>C:\toppic_tutorial\tutorial_2\uniprot-st.fasta</pre>
+        </li>
+        <li> A deconvoluted MS/MS data file:
+          <pre>C:\toppic_tutorial\tutorial_2\st_1_ms2.msalign</pre>
+        </li> 
+        <li> Two MS feature file:
+        <pre>C:\toppic_tutorial\tutorial_2\st_1_ms1.feature</pre>
+        <pre>C:\toppic_tutorial\tutorial_2\st_1_ms2.feature</pre>
+        </li>
+        <li>
+          A text file containing a variable PTM: oxidation.
+          <pre>C:\toppic_tutorial\tutorial_2\variable_ptms.txt</pre>
+        </li>
+		<li>
+          A folder containing deconvoluted MS/MS spectra in the javascript format.
+          <pre>C:\toppic_tutorial\tutorial_2\st_1_html</pre>
+        </li>
+		<li>
+          A folder containing a msalign file for MS1 spectra and a csv file for its mzRT features 
+          <pre>C:\toppic_tutorial\tutorial_2\st_1_file</pre>
+        </li>
+      </ul>
+
+      <h4 class="sectionTitle">5.2 Proteoform identification by TopMG </h4>
+      <ol class="textList">
+        <li> Double click the executable file <code>topmg_gui.exe</code> in the folder
+          <code>C:\toppic_tutorial\toppic</code>.</li>
+        <li> Select <code>C:\toppic_tutorial\tutorial_2\uniprot-st.fasta</code> as the protein
+          database file.</li>
+        <li> Add <code>C:\toppic_tutorial\tutorial_2\st_1_ms2.msalign</code> as a
+          mass spectrum data file. </li>
+        <li> Select <code>C:\toppic_tutorial\tutorial_2\variable_mods.txt</code> as the file of variable PTMs. </li>
+        <li> Select <code>C57</code> as the fixed modification. </li>
+        <li> Check the checkbox <code>Decoy database</code>. </li>
+        <li> Select <code>FDR</code> as the spectrum level cutoff type. </li>
+        <li> Set the spectrum level FDR cutoff to 0.05. </li>
+        <li> Select <code>FDR</code> as the proteoform level cutoff type. </li>
+        <li> Set the proteoform level FDR cutoff to 0.05. </li>
+        <li> Click to the button "Start"</li>
+      </ol>
+      <p>
+        The screenshots of <code>topmg_gui</code> are shown below.
+      </p>
+
+      <p><img src="./images/topmg_1.png" height="400" width="600" style="border: #00008B 1px solid;"/>
+      </p>
+
+      <p><img src="./images/topmg_2.png" height="400" width="600" style="border: #00008B 1px solid;"/>
+      </p>
+
+      <p>TopMG reports two tsv files, an xml file, and collections of html
+        files for identified proteoforms.
+      <ul>
+        <li>A tsv file containing identified PrSMs with a 5% spectrum level FDR:
+          <pre>C:\toppic_tutorial\tutorial_2\st_1_ms2_topmg_prsm.tsv</pre>
+        </li>
+        <li> A tsv file containing identified proteoforms and
+          their best PrSMs with a 5% proteoform level FDR:
+          <pre>C:\toppic_tutorial\tutorial_2\st_1_ms2_topmg_proteoform.tsv</pre>
+        </li>
+        <li> An xml file containing identified proteoforms and
+          their best PrSMs with a 5% proteoform level FDR:
+          <pre>C:\toppic_tutorial\tutorial_2\st_1_ms2_topmg_proteoform.xml</pre>
+        </li>
+        <li>A folder containing javascript files of identified PrSMs with a 5% spectrum
+          level FDR:
+          <pre>C:\toppic_tutorial\tutorial_2\st_1_html\topmg_prsm_cutoff</pre>
+        </li>
+        <li>
+          A folder containing javascript files of identified PrSMs with a 5%
+          proteoform level FDR:
+          <pre>C:\toppic_tutorial\tutorial_2\st_1_html\topmg_proteoform_cutoff</pre>
+        </li>
+        <li>
+          A folder containing html files for the visualization of identified
+          PrSMs:
+          <pre>C:\toppic_tutorial\tutorial_1\st_1_html\topview</pre>
+        </li>
+      </ul>
+      </p>
+
+      <p>
+        The output files can be downloaded
+        <!-- <a href="filedownload.php?filename=./data_files/st-result.zip">here</a>.-->
+        <a href="./data_files/tutorial-2-result.zip">here</a>.
+        <!-- The running time of TopPIC is about 5 minutes. -->
+      </p>
+
+      <p>
+      To browse the PrSM identifications, 
+      go to the folder <code>st_1_html\topview</code> and use <b>Google
+        Chrome</b> (Windows IE and Firefox are not recommended) 
+      to open the file index.html. 
+      </p>
+
+
+      <h4 class="sectionTitle">5.3 Data analysis using the command line
+        interface</h4>
+
+
+        <h4>File locations</h4>
+        <ol class="textList">
+          <li>Executable file: <pre>C:\toppic_tutorial\toppic\topmg.exe</pre></li>
+          <li>Input protein database file:
+            <pre>C:\toppic_tutorial\tutorial_2\uniprot-st.fasta</pre></li>
+          <li>Input MS/MS msalign file: <pre>C:\toppic_tutorial\tutorial_2\st_1_ms2.msalign</pre></li>
+          <li>MS feature files:
+          <pre>C:\toppic_tutorial\tutorial_2\st_1_ms1.feature</pre>
+          <pre>C:\toppic_tutorial\tutorial_2\st_1_ms2.feature</pre>
+          </li>
+          <li>Variable PTM list: <pre>C:\toppic_tutorial\tutorial_2\variable_mods.txt</pre></li>
+        </ol>
+        <h4>Commands</h4>
+        <div class="command-container" id="cmd5Container">
+          <pre id="cmd5">cd c:\toppic_tutorial\tutorial_2 </pre>
+          <button class="copyBtn" onclick="copyToClipboard('cmd5')">Copy</button>
+
+        </div>
+        <div class="command-container" id="cmd6Container">
+          <pre id="cmd6">..\toppic\topmg -f C57 -d -t FDR -v 0.05 -T FDR -V 0.05 -i variable_mods.txt uniprot-st.fasta st_1_ms2.msalign</pre>
+          <button class="copyBtn" onclick="copyToClipboard('cmd6')">Copy</button>
+        </div>
+		
+		<h3>6 Tutorial 3</h3>
+      <p>
+      We will use TopPIC and TopDiff to compare the abundance of 
+      proteoforms and find differentially expressed proteoforms 
+      using two MS data files of <i>Escherichia coli</i> cells (ecoli_1.raw 
+      and ecoli_2.raw). 
+      </p>
+      <p>
+      In the MS experiment, the protein extract of <i>E. coli</i> 
+      was reduced with dithiothreitol and alkylated with iodoacetamide. 
+      The protein mixture was separated by capillary zone 
+      electrophoresis and analyzed by 
+      an LTQ-Orbitrap mass spectrometer (Thermo Fisher Scientific). 
+      Technical duplicates were generated for testing proteoform 
+      quantification in two runs of the same sample.   
+
+      <!--MS and MS/MS spectra were collected at a resolution of 60,000 
+      and 30,000, respectively. -->
+		
+      </p>
+      <h4 class="sectionTitle">6.1 Data set and preprocessing </h4>
+      The raw data files were processed following the steps found in Sections 4.1 - 4.4. 
+      Click
+      <a href="./data_files/tutorial-3-data.zip">here</a>
+      to download the data files used in the
+      analysis, save it in the folder <code>C:\toppic_tutorial\tutorial_3\</code>, and
+      unzip it. It includes the following files.
+      <br>
+      <br>
+      <ul>
+        <li>E.coli protein database file:
+          <pre>C:\toppic_tutorial\tutorial_3\uniprot-ecoli.fasta</pre>
+        </li>
+        <li> Two deconvoluted MS/MS data files:
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_1_ms2.msalign</pre>
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_2_ms2.msalign</pre>
+        </li> 
+		<li> Four deconvoluted MS/MS feature files:
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_1_ms1.feature</pre>
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_2_ms1.feature</pre>
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_1_ms2.feature</pre>
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_2_ms2.feature</pre>
+        </li> 
+		<li>
+          Two folders containing deconvoluted MS/MS spectra in the javascript format.
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_1_html</pre>
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_2_html</pre>
+        </li>
+		<li>
+          Two folders containing a msalign file for MS1 spectra and a csv file for its mzRT features 
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_1_file</pre>
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_2_file</pre>
+        </li>
+      </ul>
+
+      <h4 class="sectionTitle">6.2 Mass spectral identification using TopPIC </h4>
+      <p>We use <b>toppic_gui</b> to search the MS/MS spectra in
+        <code>ecoli_1_ms2.msalign</code> and <code>ecoli_2_ms2.msalign</code>
+        against the protein database <code>uniprot-ecoli.fasta</code> to
+        identify PrSMs.
+      </p>
+      <ol class="textList">
+        <li> Double click the executable file <code>toppic_gui.exe</code> in the folder
+          <code>C:\toppic_tutorial\toppic</code>.</li>
+        <li> Select <code>C:\toppic_tutorial\tutorial_3\uniprot-ecoli.fasta</code> as the protein
+          database file.</li>
+        <li> Add <code>C:\toppic_tutorial\tutorial_3\ecoli_1_ms2.msalign</code>
+          and <code>C:\toppic_tutorial\tutorial_3\ecoli_2_ms2.msalign</code> as
+          mass spectrum data files. </li>
+        <li> Select <code>C57</code> as the fixed modification. </li>
+        <li> Check the checkbox <code>Decoy database</code>. </li>
+        <li> Select <code>FDR</code> as the spectrum level cutoff type. </li>
+        <li> Select <code>FDR</code> as the proteoform level cutoff type. </li>
+        <li> Click to the button "Start"</li>
+      </ol>
+      <p>
+        The screenshots of <code>toppic_gui</code> are shown below.
+      </p>
+
+      <p><img src="./images/toppic_6.png" height="400" width="600" style="border: #00008B 1px solid;"/>
+      </p>
+
+      <p><img src="./images/toppic_3.png" height="400" width="600" style="border: #00008B 1px solid;"/>
+      </p>
+
+      <p>For each input msalign file, TopPIC reports two tsv files, an xml file, and collections of html
+        files for identified proteoforms. As a result, the output files for ecoli_1_ms2.msalign, ecoli_2_ms2.msalign are
+      <ul>
+        <li>Two tsv files containing identified PrSMs with a 1% spectrum level FDR:
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_1_ms2_toppic_prsm.tsv</pre>
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_2_ms2_toppic_prsm.tsv</pre>
+        </li>
+        <li> Two tsv files containing identified proteoforms and
+          their best PrSMs with a 1% proteoform level FDR:
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_1_ms2_toppic_proteoform.tsv</pre>
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_2_ms2_toppic_proteoform.tsv</pre>
+        </li>
+        <li> Two xml files containing identified proteoforms and
+          their best PrSMs with a 1% proteoform level FDR:
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_1_ms2_toppic_proteoform.xml</pre>
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_2_ms2_toppic_proteoform.xml</pre>
+        </li>
+        <li>Two folders containing javascript files of identified PrSMs with a 1% spectrum
+          level FDR:
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_1_html\toppic_prsm_cutoff</pre>
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_2_html\toppic_prsm_cutoff</pre>
+        </li>
+        <li>
+          Two folders containing javascript files of identified PrSMs with a 1%
+          proteoform level FDR:
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_1_html\toppic_proteoform_cutoff</pre>
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_2_html\toppic_proteoform_cutoff</pre>
+        </li>
+		<li>
+          Two folders containing html files for the visualization of identified
+          PrSMs: 
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_1_html\topview</pre>
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_2_html\topview</pre>
+        </li>
+      </ul>
+      </p>
+
+      <p>
+        The output files can be downloaded
+        <!-- <a href="filedownload.php?filename=./data_files/st-result.zip">here</a>.-->
+        <a href="./data_files/tutorial-3-result.zip">here</a>.
+        <!-- The running time of TopPIC is about 5 minutes. -->
+      </p>
+
+		
+		<h4 class="sectionTitle">6.3 Proteoform abundance comparison by TopDiff </h4>
+      <ol class="textList">
+        <li> Double click the executable file <code>topdiff_gui.exe</code> in the folder
+          <code>C:\toppic_tutorial\toppic</code>.</li>
+        <li> Select <code>C:\toppic_tutorial\tutorial_3\uniprot-ecoli.fasta</code> as the protein
+          database file.</li>
+        <li> Add <code>C:\toppic_tutorial\tutorial_3\ecoli_1_ms2.msalign</code> and <code>C:\toppic_tutorial\tutorial_3\ecoli_2_ms2.msalign</code> as a
+          mass spectrum data file. </li>
+        <li> Select <code>C57</code> as the fixed modification. </li>
+        <li> Click to the button "Start"</li>
+      </ol>
+      <p>
+        The screenshots of <code>topdiff_gui</code> are shown below.
+      </p>
+
+      <p><img src="./images/topdiff_1.png" height="400" width="600" style="border: #00008B 1px solid;"/>
+      </p>
+
+      <p>TopDiff reports one tsv file for identified proteoforms with their abundances in the input mass spectrum data
+          <pre>C:\toppic_tutorial\tutorial_3\sample_diff.tsv</pre>
+      </p>
+
+      <p>
+        The output file can be downloaded
+        <!-- <a href="filedownload.php?filename=./data_files/st-result.zip">here</a>.-->
+        <a href="./data_files/sample_diff.tsv">here</a>.
+        <!-- The running time of TopPIC is about 5 minutes. -->
+      </p>
+
+      <h4 class="sectionTitle">6.4 Data analysis using the command line
+        interface</h4>
+
+      <h4 class="sectionTitle">6.4.1 Mass spectral identification by TopPIC</h4>
+
+        <h4>File locations</h4>
+        <ol class="textList">
+          <li>Executable file: <pre>C:\toppic_tutorial\toppic\toppic.exe</pre></li>
+          <li>Input protein database file:
+            <pre>C:\toppic_tutorial\tutorial_3\uniprot-ecoli.fasta</pre></li>
+          <li>Input MS/MS msalign files: 
+		  <pre>C:\toppic_tutorial\tutorial_3\ecoli_1_ms2.msalign</pre>
+		  <pre>C:\toppic_tutorial\tutorial_3\ecoli_2_ms2.msalign</pre></li>
+          <li>MS feature files: 
+		  <pre>C:\toppic_tutorial\tutorial_3\ecoli_1_ms1.feature</pre>
+		  <pre>C:\toppic_tutorial\tutorial_3\ecoli_2_ms1.feature</pre>
+		  <pre>C:\toppic_tutorial\tutorial_3\ecoli_1_ms2.feature</pre>
+		  <pre>C:\toppic_tutorial\tutorial_3\ecoli_2_ms2.feature</pre>
+		  </li>
+        </ol>
+        <h4>Commands</h4>
+        <div class="command-container" id="cmd7Container">
+          <pre id="cmd7">cd c:\toppic_tutorial\tutorial_3 </pre>
+          <button class="copyBtn" onclick="copyToClipboard('cmd7')">Copy</button>
+
+        </div>
+        <div class="command-container" id="cmd8Container">
+          <pre id="cmd8">..\toppic\toppic -f C57 -d -t FDR -T FDR uniprot-ecoli.fasta ecoli_*_ms2.msalign</pre>
+          <button class="copyBtn" onclick="copyToClipboard('cmd8')">Copy</button>
+        </div>
+
+      <h4 class="sectionTitle">6.4.2 Comparing proteoform abundances using
+        TopDiff</h4>
+
+        <h4>File locations</h4>
+        <ol class="textList">
+          <li>Executable file: <pre>C:\toppic_tutorial\toppic\topdiff.exe</pre></li>
+          <li>Input protein database file:
+          <pre>C:\toppic_tutorial\tutorial_3\uniprot-ecoli.fasta</pre></li>
+          <li>Input MS/MS msalign files: 
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_1_ms2.msalign</pre>
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_2_ms2.msalign</pre>
+          </li>
+          <li>Input proteoform identification files:  
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_1_ms2_toppic_proteoform.xml</pre>
+          <pre>C:\toppic_tutorial\tutorial_3\ecoli_2_ms2_toppic_proteoform.xml</pre>
+          </li>
+        </ol>
+        <h4>Commands</h4>
+        <div class="command-container" id="cmd9Container">
+          <pre id="cmd9">cd c:\toppic_tutorial\tutorial_3 </pre>
+          <button class="copyBtn" onclick="copyToClipboard('cmd9')">Copy</button>
+
+        </div>
+        <div class="command-container" id="cmd10Container">
+          <pre id="cmd10">..\toppic\topdiff -f C57 uniprot-ecoli.fasta ecoli_1_ms2.msalign ecoli_2_ms2.msalign</pre>
+          <button class="copyBtn" onclick="copyToClipboard('cmd10')">Copy</button>
+        </div>
+		
+    </div>
+
+  </div>
+
+
+</div>
+
+<script src="lib/jquery-1.7.1.min.js"></script>
+<script>
+    //adding a button to copy command line commands
+    function copyToClipboard(cmdId){
+        const copyText = document.getElementById(cmdId).textContent;
+        const textArea = document.createElement('textarea');
+
+        textArea.textContent = copyText;
+        document.body.append(textArea);
+        textArea.select();
+        document.execCommand("copy");
+
+        //show tooltip that shows the text is copied
+        initializeTooltip(cmdId);
+
+        //remove the text area
+        removeTextArea(textArea);
+
+    }
+    function removeTextArea(textArea){//removing the textarea that was created to just for copying purpose
+        textArea.remove();
+    }
+
+    function initializeTooltip(cmdId){
+      const tooltip = document.createElement('div');
+
+      document.getElementById(cmdId + "Container").appendChild(tooltip);
+      tooltip.classList.add("copyBtnTooltip");
+      tooltip.textContent = "Copied to clipboard";
+
+      setTimeout(function resetToolTip(){//give time for a tooltip to appear and then completely disappear
+        tooltip.style.opacity = "0";
+        tooltip.style.transition = "opacity 1s";
+
+        setTimeout(function removeToolTip(){
+                tooltip.remove();
+        }, 500);
+      }, 200);
+    }
+
+
+</script>
+
+
+</body>
+</html>

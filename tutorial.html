@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TopMSV</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="xiaowen" >
+
+  <link href="lib/bootstrap.css" rel="stylesheet">
+  <link href="public/css/style.css" rel="stylesheet">
+  <link href="lib/bootstrap-responsive.css" rel="stylesheet">
+  <link rel="shortcut icon" href="toppic.ico">
+</head>
+
+<body style="overflow-y:scroll">
+
+<div class="container">
+
+  <div class="masthead">
+    <h2 class="muted"><font color=#0066DD>TopMSV</font></h2>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="tutorial.html">Tutorial</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- /.navbar -->
+  </div><!-- /.masthead -->
+
+  <div class="row-fluid" style="font-size:16px">
+
+    <div class="span-12">
+
+      <h3>1 Installation Guide</h3>
+      <ol class="textList">
+        <li>Go to the <a href = "index.html">Home</a> page of TopMSV.</li>
+        <li>Fill out the registration form, and click "I accept license agreement and download
+          TopMSV" to download it.</li>
+        <li>Extract all the files of the downloaded zip file to a custom folder in local drive.
+        <li>Install dependencies using the code below:</br>
+        <pre># install compiling tools
+sudo apt-get install build-essential cmake</br>
+# install other dependencies
+sudo apt-get install zlib1g-dev libboost-filesystem-dev \
+libboost-program-options-dev \
+libboost-system-dev \
+libboost-thread-dev \
+libboost-iostreams-dev \
+libboost-chrono-dev \
+libxalan-c-dev
+sudo apt-get install nodejs
+sudo apt-get install npm
+
+# install npm dependencies
+npm install</pre></li>
+        <li>Build mzMLReader program inside cpp folder:
+          <pre># building cpp program and back to app root folder
+cd cpp/build
+cmake ..
+make -j$(nproc)
+cd ../..</pre>
+        </li>
+        <li>Build TopFD and TopPIC for spectral deconvolution protein identification:
+          <pre>cd proteomics_cpp
+mkdir build
+cd build
+cmake ..
+make -j$(nproc)</br>
+cd ../bin
+ln -s ../toppic_resources .</pre>
+        </li>
+        <li>Install dependencies for a subfolder:
+          <pre># go to public/resources/topview and install dependencies for this folder
+cd public/resources/topview
+npm install
+cd ../../..</pre>
+        </li>
+        <li>Start the server. 
+          <pre>npm start</pre>
+        </li>
+        <li>Open Chrome browser and visit <a href="http://localhost:8443/">http://localhost:8443/</a> to start using TopMSV.</li>
+        <br>
+    </ol>
+
+      <hr>
+
+      <h3>2 Tutorial</h3>
+      <h4 class="sectionTitle">2.1 Top-down MS/MS Dataset</h4>
+      <p>
+        In the MS experiment, the protein extract of S. typhimurium was reduced with dithiothreitol and alkylated with iodoacetamide.
+        The protein mixture was first separated by gas-phase fractionation, resulting in 7 fractions.
+        Each fraction was separated by an HPLC system coupled to an LTQ-Orbitrap mass spectrometer (Thermo Fisher Scientific).
+        MS and MS/MS spectra were collected at a resolution of 60,000 and 30,000, respectively. In this tutorial, we use only the data file
+        of one fraction, which is converted to mzML file (st_1.mzML) using msconvert from ProteoWizard.
+      </p>
+      <p>Click <a href="./data_files/tutorial-1-raw.zip">here</a>
+        to download the dataset, save it in the local folder and unzip it.</p>
+      
+        <h4 class="sectionTitle">2.2 Upload Data</h4>
+        <ol class="textList">
+          <li>Click "Sign in" in the top right corner.</li>
+          <p><img src="public/images/index_1.png" style="border: #00008B 1px solid;"/></p>
+          <li>Sign in using one of the existing Google credentials.</li>
+          <li>Click "Upload" from the navigation bar.</li>
+          <p><img src="public/images/index_2.png" style="border: #00008B 1px solid;"/></p>
+          <li>Type "st_1" as project name and click "Select mzML file" to upload a mzML file from local drive.</li>
+          <li>Click "Submit"</li>
+          <p><img src="public/images/upload_1.png" style="border: #00008B 1px solid;"/></p>
+          <li>After processing is finished, you will receive an email notification.</li>
+        </ol>
+      
+        <h4 class="sectionTitle">2.3 View Visualization</h4>
+        <ol class="textList">
+          <li>Click "My project" in the project in the table in the main page.</li>
+          <p><img src="public/images/index_3.png" style="border: #00008B 1px solid;"/></p>
+          <li>Click "Link" in the project in the table in the main page.</li>
+          <p><img src="public/images/project_1.png" style="border: #00008B 1px solid;"/></p>
+          <h4 class="sectionTitle">2.3.1 Retention time-intensity graph</h4>
+          <p>This graph shows the liquid chromatogram of the data. 
+            The x axis of the view is the retention time in minutes, and y axis is the normalized sum 
+            of the peak intensities of detected precursor ions (range from 0% to 100%). </p>
+            <p>You can select a retention time you would like to explore further by moving the mouse cursor over the graph and clicking the vertical line that appears on the graph.
+            Then the 3D graph below is redrawn to show the peaks around the selected retention time. </p>
+            <p>You can also type in the scan number in the text box above this graph to change the scan data that is highlighted in 3D graph and is plotted in the two spectra views in the lower part of the webpage.</p>
+            <p><img src="public/images/graph_1_1.png" style="border: #00008B 1px solid;"/></p>
+
+            <h4 class="sectionTitle">2.3.2 LC-MS 3D graph</h4>
+            <p><img src="public/images/graph_2.png" style="border: #00008B 1px solid;"/></p>
+
+        </ol>
+    </div>
+
+  </div>
+
+
+</div>
+
+<script src="lib/jquery-1.7.1.min.js"></script>
+<script>
+    //adding a button to copy command line commands
+    function copyToClipboard(cmdId){
+        const copyText = document.getElementById(cmdId).textContent;
+        const textArea = document.createElement('textarea');
+
+        textArea.textContent = copyText;
+        document.body.append(textArea);
+        textArea.select();
+        document.execCommand("copy");
+
+        //show tooltip that shows the text is copied
+        initializeTooltip(cmdId);
+
+        //remove the text area
+        removeTextArea(textArea);
+
+    }
+    function removeTextArea(textArea){//removing the textarea that was created to just for copying purpose
+        textArea.remove();
+    }
+
+    function initializeTooltip(cmdId){
+      const tooltip = document.createElement('div');
+
+      document.getElementById(cmdId + "Container").appendChild(tooltip);
+      tooltip.classList.add("copyBtnTooltip");
+      tooltip.textContent = "Copied to clipboard";
+
+      setTimeout(function resetToolTip(){//give time for a tooltip to appear and then completely disappear
+        tooltip.style.opacity = "0";
+        tooltip.style.transition = "opacity 1s";
+
+        setTimeout(function removeToolTip(){
+                tooltip.remove();
+        }, 500);
+      }, 200);
+    }
+
+
+</script>
+
+
+</body>
+</html>
