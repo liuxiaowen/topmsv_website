@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TopMSV - A Web-Based Tool for Top-Down Mass Spectrometry Data Visualization</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="xiaowen" >
+
+<link href="lib/bootstrap.css" rel="stylesheet">
+<link href="public/css/style.css" rel="stylesheet">
+<link href="lib/bootstrap-responsive.css" rel="stylesheet">
+<link rel="shortcut icon" href="toppic.ico">
+</head>
+
+<body style="overflow-y:scroll">
+
+<div class="container">
+  <div class="masthead">
+    <h2 class="muted"><font color=#0066DD>TopMSV</font></h2>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav">
+            <li><a href="index.html">Summary</a></li>
+            <li><a href="manual.html">Manual</a></li>
+            <li><a href="tutorial.html">Tutorial</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- /.navbar -->
+  </div><!-- /.masthead -->
+
+  <div class="row-fluid" style="font-size:16px">
+    <div class="span-12">
+      <h3 class="sectionTitle">1 Retention time-intensity graph</h3>
+          <p>This graph shows the liquid chromatogram of the data. 
+            The x axis of the view is the retention time in minutes, and y axis is the normalized sum 
+            of the peak intensities of detected precursor ions (range from 0% to 100%). </p>
+            <ul class="textList">
+              <li>Interactions:
+                <ul class="textList">
+                  <li>Select retention time: move a mouse cursor over the graph and click the vertical line that appears on the graph.
+                    Then the 3D graph below is redrawn to show the peaks around the selected retention time. </li>
+                  <li>Change current scan: type in the scan number in the text box above this graph to change the scan data that is highlighted in 3D graph and is plotted in the two spectra views in the lower part of the webpage.</li>
+                </ul>
+              </li>
+            </ul>
+            <p><img src="public/images/graph_1_1.png" style="border: #00008B 1px solid;"/></p>
+
+            <h3 class="sectionTitle">2 LC-MS 3D graph</h3>
+            <p>This graph is a view of LC-MS data with three dimensions: x: m/z value, y: retention time, and z: peak intensity.</p>
+            <ul class="textList">
+              <li>Mouse Interactions: 
+                <ul class="textList">
+                  <li>Drag: use a left-button of the mouse to change the data window.</li>
+                  <li>Zoom: use a mouse wheel to change the data window. When you also hold a ctrl key in the keyboard while using a mouse wheel, you can increase/decrease the heights of peaks.</li>
+                  <li>Rotate: click and hold a right-button of the mouse to rotate the graph. When the direction of z-axis becomes negative to the viewer, the graph is switched to 2D view.</li>
+                </ul>
+              </li>
+              <li>Graph Menus:
+                <ul class="textList">
+                  <li>Text boxes: change the data window by typing in different numbers and then clicking "request" button</li> 
+                  <li>Buttons: 
+                    <ul class="textList">
+                      <li>Request: redraws the graph using the range in the text boxes.</li>
+                      <li>Save Graph: downloads 3D graph as a png file.</li>
+                      <li>Sign + -: makes the graph bigger/smaller. </li>
+                      <li>Full Screen: displays the graph in full screen.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <p><img src="public/images/graph_2.png" style="border: #00008B 1px solid;"/></p>
+
+            <h3 class="sectionTitle">3 Spectra graphs</h3>
+            <p>The first graph shows the peaks reported by spectral deconvolution in a mass spectrum. The second graph shows the fragment peaks in MS/MS data. Annotation for isotopic envelopes are added to the graph after TopFD is run or envelope files are uploaded.</p> 
+            <ul class="textList">
+              <li>Mouse Interactions:
+                <ul class="textList">
+                  <li>Drag: use a left-button of the mouse to change the data window.</li>
+                  <li>Zoom: use a mouse wheel on x-axis or y-axis to change the m/z or intensity range.</li>
+                </ul>
+              </li>
+              <li>Buttons: 
+                <ul class="textList">
+                  <li>Prev/Next: display peaks from prev/next scan</li>
+                  <li>Precursor Ion m/z: refocus the first graph to show the selected precursor ion.</li>
+                </ul>
+              </li>
+            </ul>
+            <p><img src="public/images/graph_3.png" style="border: #00008B 1px solid;"/></p>
+            
+            <h3 class="sectionTitle">4 Mono mass graph</h3>
+            <p>This graph shows deconvoluted monoisotopic masses in an MS/MS spectrum and its matched proteoform.</p>
+            <p>At the top, an identified proteoform sequence and its theoretical fragment masses are displayed; in the middle, the monoisotopic masses of each envelope are plotted; at the bottom, the m/z errors between matched theoretical and experimental masses are drawn in an error plot.</p>
+            
+            <ul class="textList">
+              <li>Interactions:
+                <ul class="textList">
+                  <li>Drag: use a left-button of the mouse to change the data window.</li>
+                  <li>Zoom: use a mouse wheel on x-axis or y-axis to change the mass or intensity range.</li>
+                </ul>
+              </li>
+            </ul>
+
+            <p><img src="public/images/mass_1.png" style="border: #00008B 1px solid;"/></p>
+  </div>
+</div>
+<script src="assets/js/jquery-1.7.1.min.js"></script>
+
+</body>
+</html>

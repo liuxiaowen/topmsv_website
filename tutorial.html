@@ -24,6 +24,7 @@
         <div class="container">
           <ul class="nav">
             <li><a href="index.html">Home</a></li>
+            <li><a href="manual.html">Manual</a></li>
             <li><a href="tutorial.html">Tutorial</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
@@ -38,11 +39,12 @@
 
       <h3>1 Installation Guide</h3>
       <ol class="textList">
-        <li>Go to the <a href = "index.html">Home</a> page of TopMSV.</li>
+        <li>Go to the <a href = "index.html">Home</a> page of TopMSV webpage.</li>
         <li>Fill out the registration form, and click "I accept license agreement and download
           TopMSV" to download it.</li>
-        <li>Extract all the files of the downloaded zip file to a custom folder in local drive.
-        <li>Install dependencies using the code below:</br>
+        <li>Create a new folder <code>topmsv</code> inside <code>/var/opt</code> in local drive.</li>
+        <li>Extract the downloaded zip file into <code>/var/opt/topmsv</code>.
+        <li>Inside <code>/var/opt/topmsv</code>, run the commands below:</br>
         <pre># install compiling tools
 sudo apt-get install build-essential cmake</br>
 # install other dependencies
@@ -65,7 +67,7 @@ cmake ..
 make -j$(nproc)
 cd ../..</pre>
         </li>
-        <li>Build TopFD and TopPIC for spectral deconvolution protein identification:
+        <li>Build TopFD and TopPIC for spectral deconvolution and protein identification:
           <pre>cd proteomics_cpp
 mkdir build
 cd build
@@ -90,49 +92,105 @@ cd ../../..</pre>
       <hr>
 
       <h3>2 Tutorial</h3>
-      <h4 class="sectionTitle">2.1 Top-down MS/MS Dataset</h4>
-      <p>
-        In the MS experiment, the protein extract of S. typhimurium was reduced with dithiothreitol and alkylated with iodoacetamide.
-        The protein mixture was first separated by gas-phase fractionation, resulting in 7 fractions.
-        Each fraction was separated by an HPLC system coupled to an LTQ-Orbitrap mass spectrometer (Thermo Fisher Scientific).
-        MS and MS/MS spectra were collected at a resolution of 60,000 and 30,000, respectively. In this tutorial, we use only the data file
-        of one fraction, which is converted to mzML file (st_1.mzML) using msconvert from ProteoWizard.
-      </p>
-      <p>Click <a href="./data_files/tutorial-1-raw.zip">here</a>
-        to download the dataset, save it in the local folder and unzip it.</p>
-      
-        <h4 class="sectionTitle">2.2 Upload Data</h4>
+        <h4 class="sectionTitle">2.1 Top-down MS/MS Dataset</h4>
+        <p>
+          In the MS experiment, the protein extract of S. typhimurium was reduced with dithiothreitol and alkylated with iodoacetamide.
+          The protein mixture was first separated by gas-phase fractionation, resulting in 7 fractions.
+          Each fraction was separated by an HPLC system coupled to an LTQ-Orbitrap mass spectrometer (Thermo Fisher Scientific).
+          MS and MS/MS spectra were collected at a resolution of 60,000 and 30,000, respectively. In this tutorial, we use only the data file
+          of one fraction, which is converted to mzML file (st_1.mzML) using msconvert from ProteoWizard.
+        </p>
+        <p>Click <a href="./tutorial_data/st_1.mzML">here</a>
+        to download the dataset, save it in <code>/var/opt/topmsv</code> and unzip it.</p>
+
+        <h4 class="sectionTitle">2.2 Protein sequence database</h4>
+        <p>A S. typhimurium <a href="https://www.uniprot.org/uniprot/?query=proteome:UP000001014%20reviewed:yes">proteome database</a>
+          of 1,799 proteins was downloaded from the UniProt database.
+        </p>
+  
+        <p>Click <a href="filedownload.php?filename=./tutorial_data/uniprot-st.fasta">here</a>
+          to download the protein database and save it in <code>/var/opt/topmsv</code>.</p>
+  
+        <h4 class="sectionTitle">2.3 Upload Data</h4>
         <ol class="textList">
           <li>Click "Sign in" in the top right corner.</li>
-          <p><img src="public/images/index_1.png" style="border: #00008B 1px solid;"/></p>
+          <p><img class="small-image" src="public/images/index_1.png" style="border: #00008B 1px solid;"/></p>
           <li>Sign in using one of the existing Google credentials.</li>
           <li>Click "Upload" from the navigation bar.</li>
-          <p><img src="public/images/index_2.png" style="border: #00008B 1px solid;"/></p>
-          <li>Type "st_1" as project name and click "Select mzML file" to upload a mzML file from local drive.</li>
-          <li>Click "Submit"</li>
-          <p><img src="public/images/upload_1.png" style="border: #00008B 1px solid;"/></p>
+          <p><img class="small-image" src="public/images/index_2.png" style="border: #00008B 1px solid;"/></p>
+          <li>Type "st_1" as project name and click "Select mzML file" to upload a mzML file from <code>/var/opt/topmsv</code>.</li>
+          <li>Click "Submit."</li>
+          <p><img class="small-image" src="public/images/upload_1.png" style="border: #00008B 1px solid;"/></p>
           <li>After processing is finished, you will receive an email notification.</li>
         </ol>
       
-        <h4 class="sectionTitle">2.3 View Visualization</h4>
+        <h4 class="sectionTitle">2.4 View Visualization Results</h4>
         <ol class="textList">
           <li>Click "My project" in the project in the table in the main page.</li>
-          <p><img src="public/images/index_3.png" style="border: #00008B 1px solid;"/></p>
+          <p><img class="small-image" src="public/images/index_3.png" style="border: #00008B 1px solid;"/></p>
           <li>Click "Link" in the project in the table in the main page.</li>
-          <p><img src="public/images/project_1.png" style="border: #00008B 1px solid;"/></p>
-          <h4 class="sectionTitle">2.3.1 Retention time-intensity graph</h4>
-          <p>This graph shows the liquid chromatogram of the data. 
-            The x axis of the view is the retention time in minutes, and y axis is the normalized sum 
-            of the peak intensities of detected precursor ions (range from 0% to 100%). </p>
-            <p>You can select a retention time you would like to explore further by moving the mouse cursor over the graph and clicking the vertical line that appears on the graph.
-            Then the 3D graph below is redrawn to show the peaks around the selected retention time. </p>
-            <p>You can also type in the scan number in the text box above this graph to change the scan data that is highlighted in 3D graph and is plotted in the two spectra views in the lower part of the webpage.</p>
-            <p><img src="public/images/graph_1_1.png" style="border: #00008B 1px solid;"/></p>
-
-            <h4 class="sectionTitle">2.3.2 LC-MS 3D graph</h4>
-            <p><img src="public/images/graph_2.png" style="border: #00008B 1px solid;"/></p>
-
+          <p><img class="small-image" src="public/images/project_1.png" style="border: #00008B 1px solid;"/></p>
         </ol>
+          <p>Information on how to interact with each visualization can be found at <a href="manual.html">manual</a> page.</p>
+
+          <h4 class="sectionTitle">2.5 Upload Envelope data</h4> 
+          <p>Annotation on isotopic envelopes can be added to the spectra graphs by running TopFD or manually uploading msalign files from local drive. </p>
+          <h4 class="sectionTitle">2.5.1 Run TopFD</h4> 
+          <ol class="textList">
+            <li>Click "TopFD" in the top right corner of the visualization page.</li>
+            <p><img class="small-image" src="public/images/topfd_1.png" style="border: #00008B 1px solid;"/></p>
+            <li>Make changes to the parameters if needed, and click "submit" button.</li>
+            <p><img class="small-image" src="public/images/topfd_2.png" style="border: #00008B 1px solid;"/></p>
+          </ol>
+          <h4 class="sectionTitle">2.5.2 Manual upload</h4> 
+          <ol class="textList">
+            <li>Click "Upload" in the top right corner of the visualization page.</li>
+            <p><img class="small-image" src="public/images/manual_1.png" style="border: #00008B 1px solid;"/></p>
+            <li>Click "Choose file" to locate ms1 and ms2 msalign files, and click "upload" button.</li>
+            <p><img class="small-image" src="public/images/msalign_1.png" style="border: #00008B 1px solid;"/></p>
+            <li>After envelope data is processed, isotopic envelope annotations are added to the spectra graphs. A table containing the envelope data is also generated.</li>
+            <p><img class="small-image" src="public/images/msalign_2.png" style="border: #00008B 1px solid;"/></p>
+          </ol>
+
+          <h4 class="sectionTitle">2.6 Upload feature data</h4> 
+          <ol class="textList">
+            <li>Click "Upload" in the top right corner of the visualization page.</li>
+            <p><img class="small-image" src="public/images/manual_1.png" style="border: #00008B 1px solid;"/></p>
+            <li>Click "Choose file" to locate a mzrt csv file, and click "upload" button.</li>
+            <p><img class="small-image" src="public/images/mzrt_1.png" style="border: #00008B 1px solid;"/></p>
+            <li>After mzrt data is processed, annotations for each feature (dotted rectangles) are added to the 3d graph. When a mouse cursor hovers over a rectangle, a tooltip is displayed with the current feature information.</li>
+            <p><img class="small-image" src="public/images/mzrt_2.png" style="border: #00008B 1px solid;"/></p>
+          </ol>
+
+          <h4 class="sectionTitle">2.7 Upload PrSM identification data</h4> 
+          <p>PrSM identification data can be uploaded by running TopPIC or manually uploading identification file from local drive. 
+            When the identification data is added, it is possible to adjust input data such as peaks, ions, PTMs and redraw spectra graphs.</p>
+          <h4 class="sectionTitle">2.7.1 Run TopPIC</h4> 
+          <ol class="textList">
+            <li>Click "TopPIC" in the top right corner of the visualization page.</li>
+            <p><img class="small-image" src="public/images/toppic_1.png" style="border: #00008B 1px solid;"/></p>
+            <li>Upload a protein database file from <code>/var/opt/topmsv</code> by clicking "Choose file." Make changes to the parameters if needed, and click "submit" button.</li>
+            <p><img class="small-image" src="public/images/toppic_2.png" style="border: #00008B 1px solid;"/></p>
+          </ol>
+          <h4 class="sectionTitle">2.7.2 Manual upload</h4> 
+          <ol class="textList">
+            <li>Click "Upload" in the top right corner of the visualization page.</li>
+            <p><img class="small-image" src="public/images/manual_1.png" style="border: #00008B 1px solid;"/></p>
+            <li>Click "Choose file" to locate ms1 and ms2 msalign files, and click "upload" button.</li>
+            <p><img class="small-image" src="public/images/prsm_1.png" style="border: #00008B 1px solid;"/></p>
+          </ol>
+          <h4 class="sectionTitle">2.8 Inspect page</h4> 
+          <ol class="textList">
+            <li>After running TopPIC, click "Inspect" button from the envelope table.</li>
+            <p><img class="small-image" src="public/images/inspect_1.png" style="border: #00008B 1px solid;"/></p>
+            <li>Input data are pre-filled using the data from PrSM identification file. Make any changes if necessary, then click "Submit" to display visualizations.</li>
+            <p><img class="small-image" src="public/images/inspect_2.png" style="border: #00008B 1px solid;"/></p>
+            <li>A protein sequence with a MS/MS spectra graph, a mono mass graph, a mono mass table, and a theoretical fragment ion mass table appear.</li>
+            <p><img class="small-image" src="public/images/inspect_3.png" style="border: #00008B 1px solid;"/></p>
+          </ol>
+          <p>Information on how to interact with each visualization can be found at <a href="manual.html">manual</a> page.</p>
+
+
     </div>
 
   </div>
