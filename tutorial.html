@@ -62,7 +62,9 @@ sudo apt-get install npm
 npm install</pre></li>
         <li>Build mzMLReader program inside cpp folder:
           <pre># building cpp program and back to app root folder
-cd cpp/build
+cd cpp
+mkdir build
+cd build
 cmake ..
 make -j$(nproc)
 cd ../..</pre>
