@@ -62,7 +62,9 @@ sudo apt-get install npm
 npm install</pre></li>
         <li>Build mzMLReader program inside cpp folder:
           <pre># building cpp program and back to app root folder
-cd cpp/build
+cd cpp
+mkdir build
+cd build
 cmake ..
 make -j$(nproc)
 cd ../..</pre>
@@ -84,7 +86,7 @@ cd ../../..</pre>
         </li>
         <li>Install dependencies for mzid generator program
           <pre>
-#only if Python is not installed already (python2 is compatiable)
+#only if Python is not installed already (python2 is compatible)
 sudo apt-get install python3.6
             
 #install required packages for the program
