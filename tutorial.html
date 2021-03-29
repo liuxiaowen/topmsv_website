@@ -84,7 +84,7 @@ cd ../../public/resources/topview
 npm install
 cd ../../..</pre>
         </li>
-        <li>Install dependencies for mzid generator program
+        <li>Install dependencies for mzid generator program:
           <pre>
 #only if Python is not installed already (python2 is compatible)
 sudo apt-get install python3.6
@@ -99,7 +99,7 @@ pip3 install pyteomics
 </pre>
 
         </li>
-        <li>Create <a href="https://support.google.com/googleapi/answer/6158849?hl=en">Google OAuth 2.0 credentials</a> and enter the credentials in auth.js file. 
+        <li>Create <a href="https://support.google.com/googleapi/answer/6158849?hl=en">Google OAuth 2.0 credentials</a> and enter the credentials in auth.js file: 
           <pre>
 #auth.js file
 ...
@@ -115,7 +115,31 @@ callbackURL: 'http://localhost:8443/auth/google/callback'
 }));
           </pre>
         </li>
-        <li>Start the server. 
+        <li>Enter server and email address which will send the notification emails to the users:
+        <pre>
+#nodemailer-auth.js file
+const transport = nodemailer.createTransport({
+  host: <b>HOSTNAME</b>, // server address
+  secureConnection: false, // TLS requires secureConnection to be false
+  port: 587, // port for secure SMTP
+  tls: {
+    ciphers:'SSLv3'
+  },
+  auth: {
+    user: <b>USERNAME</b>,
+    pass: <b>PW</b>
+    }
+  });
+        
+const message = {
+  from: <b>YOUR_EMAIL</b>,
+  to: 'default@gmail.com',         // List of recipients
+  subject: 'Default Subject', // Subject line
+  text: 'Default text' // Plain text body
+};
+        </pre>
+        </li>
+        <li>Start the server: 
           <pre>npm start</pre>
         </li>
         <li>Open Chrome browser and visit <a href="http://localhost:8443/">http://localhost:8443/</a> to start using TopMSV.</li>
