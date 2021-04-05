@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TopMSV</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="xiaowen" >
+
+  <link href="lib/bootstrap.css" rel="stylesheet">
+  <link href="public/css/style.css" rel="stylesheet">
+  <link href="lib/bootstrap-responsive.css" rel="stylesheet">
+  <link rel="shortcut icon" href="toppic.ico">
+</head>
+
+<body style="overflow-y:scroll">
+
+<div class="container">
+
+  <div class="masthead">
+    <h2 class="muted"><font color=#0066DD>TopMSV</font></h2>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="manual.html">Manual</a></li>
+            <li><a href="tutorial.html">Tutorial</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- /.navbar -->
+  </div><!-- /.masthead -->
+
+  <div class="row-fluid" style="font-size:16px">
+
+    <div class="span-12">
+
+      <h3>1 Installation Guide</h3>
+      <ol class="textList">
+        <li>Go to the <a href = "index.html">Home</a> page of TopMSV webpage.</li>
+        <li>Fill out the registration form, and click "I accept license agreement and download
+          TopMSV" to download it.</li>
+        <li>Create a new folder <code>topmsv</code> inside <code>/var/opt</code> in local drive.</li>
+        <li>Extract the downloaded zip file into <code>/var/opt/topmsv</code>.
+        <li>Inside <code>/var/opt/topmsv</code>, run the commands below:</br>
+        <pre># install compiling tools
+sudo apt-get install build-essential cmake</br>
+# install other dependencies
+sudo apt-get install zlib1g-dev libboost-filesystem-dev \
+libboost-program-options-dev \
+libboost-system-dev \
+libboost-thread-dev \
+libboost-iostreams-dev \
+libboost-chrono-dev \
+libxalan-c-dev
+sudo apt-get install nodejs
+sudo apt-get install npm
+
+# install npm dependencies
+npm install</pre></li>
+        <li>Build mzMLReader program inside cpp folder:
+          <pre># building cpp program and back to app root folder
+cd cpp
+mkdir build
+cd build
+cmake ..
+make -j$(nproc)
+cd ../..</pre>
+        </li>
+        <li>Build TopFD and TopPIC for spectral deconvolution and protein identification:
+          <pre>cd proteomics_cpp
+mkdir build
+cd build
+cmake ..
+make -j$(nproc)</br>
+cd ../bin
+ln -s ../toppic_resources .</pre>
+        </li>
+        <li>Install dependencies for a subfolder:
+          <pre># go to public/resources/topview and install dependencies for this folder
+cd ../../public/resources/topview
+npm install
+cd ../../..</pre>
+        </li>
+        <li>Install dependencies for mzid generator program:
+          <pre>
+#only if Python is not installed already (python2 is compatible)
+sudo apt-get install python3.6
+            
+#install required packages for the program
+#use pip2 if using python2
+pip3 install lxml
+pip3 install six
+pip3 install sqlalchemy
+pip3 install numpy
+pip3 install pyteomics
+</pre>
+
+        </li>
+        <li>Create <a href="https://support.google.com/googleapi/answer/6158849?hl=en">Google OAuth 2.0 credentials</a> and enter the credentials in auth.js file: 
+          <pre>
+#auth.js file
+...
+passport.use(new GoogleStrategy({
+clientID: "<b>ENTER YOUR CREDENTIALS HERE</b>",
+clientSecret: "<b>ENTER YOUR CREDENTIALS HERE</b>",
+callbackURL: 'http://localhost:8443/auth/google/callback'
+}, (token, refreshToken, profile, done) => {
+    return done(null, {
+      profile: profile,
+      token: token
+    });
+}));
+          </pre>
+        </li>
+        <li>Enter server and email address which will send the notification emails to the users:
+        <pre>
+#nodemailer-auth.js file
+const transport = nodemailer.createTransport({
+  host: <b>HOSTNAME</b>, // server address
+  secureConnection: false, // TLS requires secureConnection to be false
+  port: 587, // port for secure SMTP
+  tls: {
+    ciphers:'SSLv3'
+  },
+  auth: {
+    user: <b>USERNAME</b>,
+    pass: <b>PW</b>
+    }
+  });
+        
+const message = {
+  from: <b>YOUR_EMAIL</b>,
+  to: 'default@gmail.com',         // List of recipients
+  subject: 'Default Subject', // Subject line
+  text: 'Default text' // Plain text body
+};
+        </pre>
+        </li>
+        <li>Start the server: 
+          <pre>npm start</pre>
+        </li>
+        <li>Open Chrome browser and visit <a href="http://localhost:8443/">http://localhost:8443/</a> to start using TopMSV.</li>
+        <br>
+    </ol>
+
+      <hr>
+
+      <h3>2 Tutorial</h3>
+        <h4 class="sectionTitle">2.1 Top-down MS/MS Dataset</h4>
+        <p>
+          In the MS experiment, the protein extract of S. typhimurium was reduced with dithiothreitol and alkylated with iodoacetamide.
+          The protein mixture was first separated by gas-phase fractionation, resulting in 7 fractions.
+          Each fraction was separated by an HPLC system coupled to an LTQ-Orbitrap mass spectrometer (Thermo Fisher Scientific).
+          MS and MS/MS spectra were collected at a resolution of 60,000 and 30,000, respectively. In this tutorial, we use only the data file
+          of one fraction, which is converted to mzML file (st_1.mzML) using msconvert from ProteoWizard.
+        </p>
+        <p>Click <a href="filedownload.php?filename=./tutorial_data/st_1.mzML">here</a>
+        to download the dataset, save it in <code>/var/opt/topmsv</code> and unzip it.</p>
+
+        <h4 class="sectionTitle">2.2 Protein sequence database</h4>
+        <p>A S. typhimurium <a href="https://www.uniprot.org/uniprot/?query=proteome:UP000001014%20reviewed:yes">proteome database</a>
+          of 1,799 proteins was downloaded from the UniProt database.
+        </p>
+  
+        <p>Click <a href="filedownload.php?filename=./tutorial_data/uniprot-st.fasta">here</a>
+          to download the protein database and save it in <code>/var/opt/topmsv</code>.</p>
+  
+        <h4 class="sectionTitle">2.3 Upload Data</h4>
+        <ol class="textList">
+          <li>Click "Sign in" in the top right corner.</li>
+          <p><img class="small-image" src="public/images/index_1.PNG" style="border: #00008B 1px solid;"/></p>
+          <li>Sign in using one of the existing Google credentials.</li>
+          <li>Click "Upload" from the navigation bar.</li>
+          <p><img class="small-image" src="public/images/index_2.PNG" style="border: #00008B 1px solid;"/></p>
+          <li>Type "st_1" as project name and click "Select mzML file" to upload a mzML file from <code>/var/opt/topmsv</code>.</li>
+          <li>Click "Submit."</li>
+          <p><img class="small-image" src="public/images/upload_1.PNG" style="border: #00008B 1px solid;"/></p>
+          <li>After processing is finished, you will receive an email notification.</li>
+        </ol>
+      
+        <h4 class="sectionTitle">2.4 View Visualization Results</h4>
+        <ol class="textList">
+          <li>Click "My project" in the project in the table in the main page.</li>
+          <p><img class="small-image" src="public/images/index_3.PNG" style="border: #00008B 1px solid;"/></p>
+          <li>Click "Link" in the project in the table in the main page.</li>
+          <p><img class="small-image" src="public/images/project_1.PNG" style="border: #00008B 1px solid;"/></p>
+        </ol>
+          <p>Information on how to interact with each visualization can be found at <a href="manual.html">manual</a> page.</p>
+
+          <h4 class="sectionTitle">2.5 Upload Envelope data</h4> 
+          <p>Annotation on isotopic envelopes can be added to the spectra graphs by running TopFD or manually uploading msalign files from local drive. </p>
+          <h4 class="sectionTitle">2.5.1 Run TopFD</h4> 
+          <ol class="textList">
+            <li>Click "TopFD" in the top right corner of the visualization page.</li>
+            <p><img class="small-image" src="public/images/topfd_1.png" style="border: #00008B 1px solid;"/></p>
+            <li>Make changes to the parameters if needed, and click "submit" button.</li>
+            <p><img class="small-image" src="public/images/topfd_2.PNG" style="border: #00008B 1px solid;"/></p>
+          </ol>
+          <h4 class="sectionTitle">2.5.2 Manual upload</h4> 
+          <ol class="textList">
+            <li>Click "Upload" in the top right corner of the visualization page.</li>
+            <p><img class="small-image" src="public/images/manual_1.png" style="border: #00008B 1px solid;"/></p>
+            <li>Click "Choose file" to locate ms1 and ms2 msalign files generated by TopFD, and click "upload" button.</li>
+            <p><img class="small-image" src="public/images/msalign_1.PNG" style="border: #00008B 1px solid;"/></p>
+            <li>After envelope data is processed, isotopic envelope annotations are added to the spectra graphs. A table containing the envelope data is also generated.</li>
+            <p><img class="small-image" src="public/images/msalign_2.PNG" style="border: #00008B 1px solid;"/></p>
+          </ol>
+
+          <h4 class="sectionTitle">2.6 Upload feature data</h4> 
+          <ol class="textList">
+            <li>Click "Upload" in the top right corner of the visualization page.</li>
+            <p><img class="small-image" src="public/images/manual_1.png" style="border: #00008B 1px solid;"/></p>
+            <li>Click "Choose file" to locate a mzrt csv file generated by TopFD, and click "upload" button.</li>
+            <p><img class="small-image" src="public/images/mzrt_1.PNG" style="border: #00008B 1px solid;"/></p>
+            <li>After mzrt data is processed, annotations for each feature (dotted rectangles) are added to the 3d graph. When a mouse cursor hovers over a rectangle, a tooltip is displayed with the current feature information.</li>
+            <p><img class="small-image" src="public/images/mzrt_2.PNG" style="border: #00008B 1px solid;"/></p>
+          </ol>
+
+          <h4 class="sectionTitle">2.7 Upload PrSM identification data</h4> 
+          <p>PrSM identification data can be uploaded by running TopPIC or manually uploading identification file from local drive. 
+            When the identification data is added, it is possible to adjust input data such as peaks, ions, PTMs and redraw spectra graphs.</p>
+          <h4 class="sectionTitle">2.7.1 Run TopPIC</h4> 
+          <ol class="textList">
+            <li>Click "TopPIC" in the top right corner of the visualization page.</li>
+            <p><img class="small-image" src="public/images/toppic_1.png" style="border: #00008B 1px solid;"/></p>
+            <li>Upload a protein database file from <code>/var/opt/topmsv</code> by clicking "Choose file."</li>
+            <li>(Optional) When uploading a text file for fixed PTMs, follow the format in this <a href="tutorial_data/fixed_mods.txt">sample file</a>. When uploading a text file for PTM characterization, follow the format in this <a href="tutorial_data/common_mods.txt">sample file</a>.</li>
+            <p><img class="small-image" src="public/images/toppic_2.png" style="border: #00008B 1px solid;"/></p>
+            <li>Make changes to the parameters if needed, and click "submit" button.</li>
+          </ol>
+          <h4 class="sectionTitle">2.7.2 Manual upload</h4> 
+          <ol class="textList">
+            <li>Click "Upload" in the top right corner of the visualization page.</li>
+            <p><img class="small-image" src="public/images/manual_1.png" style="border: #00008B 1px solid;"/></p>
+            <li>Click "Choose file" to locate the protein identification file generated by TopPIC, and click "upload" button.</li>
+            <p><img class="small-image" src="public/images/prsm_1.PNG" style="border: #00008B 1px solid;"/></p>
+          </ol>
+          <h4 class="sectionTitle">2.8 Inspect page</h4> 
+          <ol class="textList">
+            <li>After running TopPIC, click "Inspect" button from the envelope table.</li>
+            <p><img class="small-image" src="public/images/inspect_1.PNG" style="border: #00008B 1px solid;"/></p>
+            <li>Input data are pre-filled using the data from PrSM identification file. Make any changes if necessary, then click "Submit" to display visualizations.</li>
+            <p><img class="small-image" src="public/images/inspect_2.PNG" style="border: #00008B 1px solid;"/></p>
+            <li>A protein sequence with a MS/MS spectra graph, a mono mass graph, a mono mass table, and a theoretical fragment ion mass table appear.</li>
+            <p><img class="small-image" src="public/images/inspect_3.PNG" style="border: #00008B 1px solid;"/></p>
+          </ol>
+          <p>Information on how to interact with each visualization can be found at <a href="manual.html">manual</a> page.</p>
+
+
+    </div>
+
+  </div>
+
+
+</div>
+
+<script src="lib/jquery-1.7.1.min.js"></script>
+<script>
+    //adding a button to copy command line commands
+    function copyToClipboard(cmdId){
+        const copyText = document.getElementById(cmdId).textContent;
+        const textArea = document.createElement('textarea');
+
+        textArea.textContent = copyText;
+        document.body.append(textArea);
+        textArea.select();
+        document.execCommand("copy");
+
+        //show tooltip that shows the text is copied
+        initializeTooltip(cmdId);
+
+        //remove the text area
+        removeTextArea(textArea);
+
+    }
+    function removeTextArea(textArea){//removing the textarea that was created to just for copying purpose
+        textArea.remove();
+    }
+
+    function initializeTooltip(cmdId){
+      const tooltip = document.createElement('div');
+
+      document.getElementById(cmdId + "Container").appendChild(tooltip);
+      tooltip.classList.add("copyBtnTooltip");
+      tooltip.textContent = "Copied to clipboard";
+
+      setTimeout(function resetToolTip(){//give time for a tooltip to appear and then completely disappear
+        tooltip.style.opacity = "0";
+        tooltip.style.transition = "opacity 1s";
+
+        setTimeout(function removeToolTip(){
+                tooltip.remove();
+        }, 500);
+      }, 200);
+    }
+
+
+</script>
+
+
+</body>
+</html>

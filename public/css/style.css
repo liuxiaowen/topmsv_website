@@ -1,0 +1,135 @@
+
+body {
+padding-top: 20px;
+padding-bottom: 60px;
+}
+
+/* Custom container */
+.container {
+  margin: 0 auto;
+  max-width: 1000px;
+}
+.container > hr {
+  margin: 60px 0;
+}
+
+
+/* Customize the navbar links to be fill the entire space of the .navbar */
+.navbar .navbar-inner {
+  padding: 0;
+}
+.navbar .nav {
+  margin: 0;
+  display: table;
+  width: 100%;
+}
+.navbar .nav li {
+  display: table-cell;
+  width: 1%;
+  float: none;
+}
+.navbar .nav li a {
+  font-weight: bold;
+  text-align: center;
+  border-left: 1px solid rgba(255,255,255,.75);
+  border-right: 1px solid rgba(0,0,0,.1);
+}
+.navbar .nav li:first-child a {
+  border-left: 0;
+  border-radius: 3px 0 0 3px;
+}
+.navbar .nav li:last-child a {
+  border-right: 0;
+  border-radius: 0 3px 3px 0;
+}
+
+.code {
+  color: #777;
+}
+
+h2 {
+  color:#0066DD;
+}
+
+h3 {
+  color:#0066DD;
+
+}
+
+h4 {
+  color:#0066DD;
+  margin: 15px 0px 15px 0px;
+}
+
+/*div containing command texts and button for copying it to clipboard*/
+.command-container{
+  position:relative;
+
+}
+/* click to copy button layout */
+.copyBtn{
+  border-radius: 5px;
+  background-color: #0066DD;
+  color: white;
+  opacity:0.8;
+  padding:2px 5px;
+  position:absolute;
+  right:15px;
+  bottom:9px;
+}
+.copyBtn:hover{
+  background-color: #d4d4d4;/* Gray */
+}
+.copyBtnTooltip{
+  /*visibility: hidden;*/
+  width: 130px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 115%;
+  right: 0;
+
+  /*tooptip text formatting */
+  font-size:12px;
+
+}
+
+/*image enlarge on hover*/
+/*the commented out part display image on top of original page --> if using modal then use that code*/
+/*img{*/
+  /*!*transition: transform .3s;*!*/
+  /*transition: width .6s, height .5s;*/
+/*}*/
+/*img:hover{*/
+  /*!*-ms-transform: scale(1.5); !* IE 9 *!*!*/
+  /*!*-webkit-transform: scale(1.5); !* Safari 3-8 *!*!*/
+  /*!*transform: scale(1.5);*!*/
+  /*width:110%;*/
+  /*height:110%;*/
+
+/*}*/
+
+/*list of texts explaining each step*/
+.textList li{
+  padding: 0px 0px 5px 0px;
+}
+
+/*to differentiate between bigger and smaller section titles in h4 == custom made <h3.5>*/
+.sectionTitle{
+  font-size:20px;
+}
+/*pre block is too wide
+pre{
+  width:60%;
+}*/
+/*image size*/
+img{
+  max-width:600px;
+  max-height:600px;
+}
