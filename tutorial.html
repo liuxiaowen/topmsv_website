@@ -72,18 +72,9 @@ cmake ..
 make -j$(nproc)
 cd ../..</pre>
         </li>
-        <li>Build TopFD and TopPIC for spectral deconvolution and protein identification:
-          <pre>cd proteomics_cpp
-mkdir build
-cd build
-cmake ..
-make -j$(nproc)</br>
-cd ../bin
-ln -s ../toppic_resources .</pre>
-        </li>
         <li>Install dependencies for a subfolder:
           <pre># go to public/resources/topview and install dependencies for this folder
-cd ../../public/resources/topview
+cd public/resources/topview
 npm install
 cd ../../..</pre>
         </li>
