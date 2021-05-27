@@ -42,57 +42,21 @@
       <p><b>This section only applies to the users who would like to implement their own TopMSV server.
         All other users (ex: using TopMSV from the TopMSV website) can skip this section and go to <a href="#tutorial_start">Section 2 Usage Guide</a>.</b> </p>
       <ol class="textList">
-        <li>Go to the <a href = "index.html">Home</a> page of TopMSV webpage.</li>
-        <li>Fill out the registration form, and click "I accept license agreement and download
-          TopMSV" to download it.</li>
-        <li>Create a new folder <code>topmsv</code> inside <code>/var/opt</code> in local drive.</li>
-        <li>Extract the downloaded zip file into <code>/var/opt/topmsv</code>.
-        <li>Inside <code>/var/opt/topmsv</code>, run the commands below:</br>
-        <pre># install compiling tools
-sudo apt-get install build-essential cmake</br>
-# install other dependencies
-sudo apt-get install zlib1g-dev libboost-filesystem-dev \
-libboost-program-options-dev \
-libboost-system-dev \
-libboost-thread-dev \
-libboost-iostreams-dev \
-libboost-chrono-dev \
-libxalan-c-dev
-sudo apt-get install nodejs
-sudo apt-get install npm
-
-# install npm dependencies
-npm install</pre></li>
-        <li>Build mzMLReader program inside cpp folder:
-          <pre># building cpp program and back to app root folder
-cd cpp
-mkdir build
-cd build
-cmake ..
-make -j$(nproc)
-cd ../..</pre>
-        </li>
-        <li>Install dependencies for a subfolder:
-          <pre># go to public/resources/topview and install dependencies for this folder
-cd public/resources/topview
-npm install
-cd ../../..</pre>
-        </li>
-        <li>Install dependencies for mzid generator program:
-          <pre>
-#only if Python is not installed already (python2 is compatible)
-sudo apt-get install python3.6
-            
-#install required packages for the program
-#use pip2 if using python2
-pip3 install lxml
-pip3 install six
-pip3 install sqlalchemy
-pip3 install numpy
-pip3 install pyteomics
-</pre>
-
-        </li>
+		<li><b style="color:red">(First Time Only)</b>
+		In the folder TopMSV Server files are unzipped, use the following command: <code>
+		./installServer.sh
+		</code>
+		</li>
+        <li>After installation is finished, use the following command to start TopMSV Server: <code>
+		./startServer.sh
+		</code></li>
+		<li>When finished using TopMSV Server, use the following command: <code>
+		./stopServer.sh
+		</code></li></ol>
+		<p>This is the end of TopMSV installation. You may take additional steps below to enable optional features.</p>
+		<br>
+		<h4><b>Optional</b> setup to enable user authentication</h4>
+		<ol class="textList">
         <li>Create <a href="https://support.google.com/googleapi/answer/6158849?hl=en">Google OAuth 2.0 credentials</a> and enter the credentials in auth.js file: 
           <pre>
 #auth.js file
@@ -109,6 +73,10 @@ callbackURL: 'http://localhost:8443/auth/google/callback'
 }));
           </pre>
         </li>
+		<li>Open config.json file and set "authentication" to true</li>
+		</ol>
+		<h4><b>Optional</b> setup to enable email notification</h4>
+		<ol class="textList">
         <li>Enter server and email address which will send the notification emails to the users:
         <pre>
 #nodemailer-auth.js file
@@ -133,10 +101,7 @@ const message = {
 };
         </pre>
         </li>
-        <li>Start the server: 
-          <pre>npm start</pre>
-        </li>
-        <li>Open Chrome browser and visit <a href="http://localhost:8443/">http://localhost:8443/</a> to start using TopMSV.</li>
+		<li>Open config.json file and set "sendEmail" to true</li>
         <br>
     </ol>
 
