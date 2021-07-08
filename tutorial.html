@@ -34,28 +34,154 @@
   </div><!-- /.masthead -->
 
   <div class="row-fluid" style="font-size:16px">
-
     <div class="span-12">
-
-      <h3>1 Installation Guide</h3>
-
-      <p><b>This section only applies to the users who would like to implement their own TopMSV server.
-        All other users (ex: using TopMSV from the TopMSV website) can skip this section and go to <a href="#tutorial_start">Section 2 Usage Guide</a>.</b> </p>
+      <p>If you would like to try out TopMSV before installation, you can visit <a href="https://toppic.soic.iupui.edu/">TopMSV website</a> to access full features without installation.</p>
+      <h3>1 Installation</h3>
+      <!--<p><b>This section only applies to the users who would like to implement their own TopMSV server.
+        All other users (ex: using TopMSV from the <a href="https://toppic.soic.iupui.edu/">TopMSV website</a>) can skip this section and go to <a href="#tutorial_start">Section 3 Usage Guide</a>.</b> </p>-->
       <ol class="textList">
-		<li><b style="color:red">(First Time Only)</b>
-		In the folder TopMSV Server files are unzipped, use the following command: <code>
-		./installServer.sh
-		</code>
-		</li>
-        <li>After installation is finished, use the following command to start TopMSV Server: <code>
-		./startServer.sh
-		</code></li>
-		<li>When finished using TopMSV Server, use the following command: <code>
-		./stopServer.sh
-		</code></li></ol>
-		<p>This is the end of TopMSV installation. You may take additional steps below to enable optional features.</p>
-		<br>
-		<h4><b>Optional</b> setup to enable user authentication</h4>
+        <li>Download TopMSV from <a href="http://toppic.org/software/topmsv/index.html">Home</a> page and unzip the file.</li>
+        <ul class="textList">
+            <li>For Linux
+              <ul class="textList"><li>In the folder TopMSV files are unzipped, use the following command: 
+                <code>./installServer.sh</code></li>
+              </ul>
+            </li>
+            <li>For Windows
+              <ul class="textList"><li>No installation is needed.</li>
+              </ul>
+            </li>
+          </ul>
+        
+      </ol>
+      <hr>
+      <h3>2 Start/Stop Server</h3>
+      <ol class="textList">
+        <p>In the folder TopMSV files are unzipped: </p>
+        <ul class="textList">
+          <li>For Linux
+            <ul class="textList">
+              <li>Enter <code>./startServer.sh</code> to start TopMSV.
+                
+              </li>
+              <li>Enter <code>./stopServer.sh</code> to stop TopMSV.
+                
+              </li>
+            </ul>
+          </li>
+          <li>For Windows
+            <ul class="textList">
+              <li>Double click <code>startServer.bat</code> to start TopMSV.</li>
+              <li>Double click <code>stopServer.bat</code> to stop TopMSV.</li>
+            </ul>
+          </li>
+      </ol>
+		<!--<p>This is the end of TopMSV installation. You may take additional steps at the end of this page to enable optional features.</p>-->
+    <hr>
+    <a name="tutorial_start"></a>
+      <h3>3 Usage Guide</h3>
+        <h4 class="sectionTitle">3.1 Top-down MS/MS Dataset</h4>
+        <p>
+          In the MS experiment, the protein extract of S. typhimurium was reduced with dithiothreitol and alkylated with iodoacetamide.
+          The protein mixture was first separated by gas-phase fractionation, resulting in 7 fractions.
+          Each fraction was separated by an HPLC system coupled to an LTQ-Orbitrap mass spectrometer (Thermo Fisher Scientific).
+          MS and MS/MS spectra were collected at a resolution of 60,000 and 30,000, respectively. In this tutorial, we use only the data file
+          of one fraction, which is converted to mzML file (st_1.mzML) using msconvert from ProteoWizard.
+        </p>
+        <p>Click <a href="filedownload.php?filename=./tutorial_data/st_1.mzML">here</a>
+        to download the dataset, save it in <code>/var/opt/topmsv</code> and unzip it.</p>
+
+        <h4 class="sectionTitle">3.2 Protein sequence database</h4>
+        <p>A S. typhimurium <a href="https://www.uniprot.org/uniprot/?query=proteome:UP000001014%20reviewed:yes">proteome database</a>
+          of 1,799 proteins was downloaded from the UniProt database.
+        </p>
+  
+        <p>Click <a href="filedownload.php?filename=./tutorial_data/uniprot-st.fasta">here</a>
+          to download the protein database and save it in <code>/var/opt/topmsv</code>.</p>
+  
+        <h4 class="sectionTitle">3.3 Upload Data</h4>
+        <ol class="textList">
+          <li>Click "Sign in" in the top right corner.</li>
+          <p><img class="small-image" src="public/images/index_1.PNG" style="border: #00008B 1px solid;"/></p>
+          <li>Sign in using one of the existing Google credentials.</li>
+          <li>Click "Upload" from the navigation bar.</li>
+          <p><img class="small-image" src="public/images/index_2.PNG" style="border: #00008B 1px solid;"/></p>
+          <li>Type "st_1" as project name and click "Select mzML file" to upload a mzML file from <code>/var/opt/topmsv</code>.</li>
+          <li>Click "Submit."</li>
+          <p><img class="small-image" src="public/images/upload_1.PNG" style="border: #00008B 1px solid;"/></p>
+          <li>After processing is finished, you will receive an email notification.</li>
+        </ol>
+      
+        <h4 class="sectionTitle">3.4 View Visualization Results</h4>
+        <ol class="textList">
+          <li>Click "My project" in the project in the table in the main page.</li>
+          <p><img class="small-image" src="public/images/index_3.PNG" style="border: #00008B 1px solid;"/></p>
+          <li>Click "Link" in the project in the table in the main page.</li>
+          <p><img class="small-image" src="public/images/project_1.PNG" style="border: #00008B 1px solid;"/></p>
+        </ol>
+          <p>Information on how to interact with each visualization can be found at <a href="manual.html">manual</a> page.</p>
+
+          <h4 class="sectionTitle">3.5 Upload Envelope data</h4> 
+          <p>Annotation on isotopic envelopes can be added to the spectra graphs by running TopFD or manually uploading msalign files from local drive. </p>
+          <h4 class="sectionTitle">3.5.1 Run TopFD</h4> 
+          <ol class="textList">
+            <li>Click "TopFD" in the top right corner of the visualization page.</li>
+            <p><img class="small-image" src="public/images/topfd_1.png" style="border: #00008B 1px solid;"/></p>
+            <li>Make changes to the parameters if needed, and click "submit" button.</li>
+            <p><img class="small-image" src="public/images/topfd_2.PNG" style="border: #00008B 1px solid;"/></p>
+          </ol>
+          <h4 class="sectionTitle">3.5.2 Manual upload</h4> 
+          <ol class="textList">
+            <li>Click "Upload" in the top right corner of the visualization page.</li>
+            <p><img class="small-image" src="public/images/manual_1.png" style="border: #00008B 1px solid;"/></p>
+            <li>Click "Choose file" to locate ms1 and ms2 msalign files generated by TopFD, and click "upload" button.</li>
+            <p><img class="small-image" src="public/images/msalign_1.PNG" style="border: #00008B 1px solid;"/></p>
+            <li>After envelope data is processed, isotopic envelope annotations are added to the spectra graphs. A table containing the envelope data is also generated.</li>
+            <p><img class="small-image" src="public/images/msalign_2.PNG" style="border: #00008B 1px solid;"/></p>
+          </ol>
+
+          <h4 class="sectionTitle">3.6 Upload feature data</h4> 
+          <ol class="textList">
+            <li>Click "Upload" in the top right corner of the visualization page.</li>
+            <p><img class="small-image" src="public/images/manual_1.png" style="border: #00008B 1px solid;"/></p>
+            <li>Click "Choose file" to locate a mzrt csv file generated by TopFD, and click "upload" button.</li>
+            <p><img class="small-image" src="public/images/mzrt_1.PNG" style="border: #00008B 1px solid;"/></p>
+            <li>After mzrt data is processed, annotations for each feature (dotted rectangles) are added to the 3d graph. When a mouse cursor hovers over a rectangle, a tooltip is displayed with the current feature information.</li>
+            <p><img class="small-image" src="public/images/mzrt_2.PNG" style="border: #00008B 1px solid;"/></p>
+          </ol>
+
+          <h4 class="sectionTitle">3.7 Upload PrSM identification data</h4> 
+          <p>PrSM identification data can be uploaded by running TopPIC or manually uploading identification file from local drive. 
+            When the identification data is added, it is possible to adjust input data such as peaks, ions, PTMs and redraw spectra graphs.</p>
+          <h4 class="sectionTitle">3.7.1 Run TopPIC</h4> 
+          <ol class="textList">
+            <li>Click "TopPIC" in the top right corner of the visualization page.</li>
+            <p><img class="small-image" src="public/images/toppic_1.png" style="border: #00008B 1px solid;"/></p>
+            <li>Upload a protein database file from <code>/var/opt/topmsv</code> by clicking "Choose file."</li>
+            <li>(Optional) When uploading a text file for fixed PTMs, follow the format in this <a href="tutorial_data/fixed_mods.txt">sample file</a>. When uploading a text file for PTM characterization, follow the format in this <a href="tutorial_data/common_mods.txt">sample file</a>.</li>
+            <p><img class="small-image" src="public/images/toppic_2.png" style="border: #00008B 1px solid;"/></p>
+            <li>Make changes to the parameters if needed, and click "submit" button.</li>
+          </ol>
+          <h4 class="sectionTitle">3.7.2 Manual upload</h4> 
+          <ol class="textList">
+            <li>Click "Upload" in the top right corner of the visualization page.</li>
+            <p><img class="small-image" src="public/images/manual_1.png" style="border: #00008B 1px solid;"/></p>
+            <li>Click "Choose file" to locate the protein identification file generated by TopPIC, and click "upload" button.</li>
+            <p><img class="small-image" src="public/images/prsm_1.PNG" style="border: #00008B 1px solid;"/></p>
+          </ol>
+          <h4 class="sectionTitle">3.8 Inspect page</h4> 
+          <ol class="textList">
+            <li>After running TopPIC, click "Inspect" button from the envelope table.</li>
+            <p><img class="small-image" src="public/images/inspect_1.PNG" style="border: #00008B 1px solid;"/></p>
+            <li>Input data are pre-filled using the data from PrSM identification file. Make any changes if necessary, then click "Submit" to display visualizations.</li>
+            <p><img class="small-image" src="public/images/inspect_2.PNG" style="border: #00008B 1px solid;"/></p>
+            <li>A protein sequence with a MS/MS spectra graph, a mono mass graph, a mono mass table, and a theoretical fragment ion mass table appear.</li>
+            <p><img class="small-image" src="public/images/inspect_3.PNG" style="border: #00008B 1px solid;"/></p>
+          </ol>
+          <p>Information on how to interact with each visualization can be found at <a href="manual.html">manual</a> page.</p>
+          <hr>
+          <h3>4 Optional Setup for Advanced Users</h3>
+      		<h4><b>Optional</b> setup to enable user authentication</h4>
 		<ol class="textList">
         <li>Create <a href="https://support.google.com/googleapi/answer/6158849?hl=en">Google OAuth 2.0 credentials</a> and enter the credentials in auth.js file: 
           <pre>
@@ -103,117 +229,9 @@ const message = {
         </li>
 		<li>Open config.json file and set "sendEmail" to true</li>
         <br>
-    </ol>
-
-      <hr>
-      <a name="tutorial_start"></a>
-      <h3>2 Usage Guide</h3>
-        <h4 class="sectionTitle">2.1 Top-down MS/MS Dataset</h4>
-        <p>
-          In the MS experiment, the protein extract of S. typhimurium was reduced with dithiothreitol and alkylated with iodoacetamide.
-          The protein mixture was first separated by gas-phase fractionation, resulting in 7 fractions.
-          Each fraction was separated by an HPLC system coupled to an LTQ-Orbitrap mass spectrometer (Thermo Fisher Scientific).
-          MS and MS/MS spectra were collected at a resolution of 60,000 and 30,000, respectively. In this tutorial, we use only the data file
-          of one fraction, which is converted to mzML file (st_1.mzML) using msconvert from ProteoWizard.
-        </p>
-        <p>Click <a href="filedownload.php?filename=./tutorial_data/st_1.mzML">here</a>
-        to download the dataset, save it in <code>/var/opt/topmsv</code> and unzip it.</p>
-
-        <h4 class="sectionTitle">2.2 Protein sequence database</h4>
-        <p>A S. typhimurium <a href="https://www.uniprot.org/uniprot/?query=proteome:UP000001014%20reviewed:yes">proteome database</a>
-          of 1,799 proteins was downloaded from the UniProt database.
-        </p>
-  
-        <p>Click <a href="filedownload.php?filename=./tutorial_data/uniprot-st.fasta">here</a>
-          to download the protein database and save it in <code>/var/opt/topmsv</code>.</p>
-  
-        <h4 class="sectionTitle">2.3 Upload Data</h4>
-        <ol class="textList">
-          <li>Click "Sign in" in the top right corner.</li>
-          <p><img class="small-image" src="public/images/index_1.PNG" style="border: #00008B 1px solid;"/></p>
-          <li>Sign in using one of the existing Google credentials.</li>
-          <li>Click "Upload" from the navigation bar.</li>
-          <p><img class="small-image" src="public/images/index_2.PNG" style="border: #00008B 1px solid;"/></p>
-          <li>Type "st_1" as project name and click "Select mzML file" to upload a mzML file from <code>/var/opt/topmsv</code>.</li>
-          <li>Click "Submit."</li>
-          <p><img class="small-image" src="public/images/upload_1.PNG" style="border: #00008B 1px solid;"/></p>
-          <li>After processing is finished, you will receive an email notification.</li>
-        </ol>
-      
-        <h4 class="sectionTitle">2.4 View Visualization Results</h4>
-        <ol class="textList">
-          <li>Click "My project" in the project in the table in the main page.</li>
-          <p><img class="small-image" src="public/images/index_3.PNG" style="border: #00008B 1px solid;"/></p>
-          <li>Click "Link" in the project in the table in the main page.</li>
-          <p><img class="small-image" src="public/images/project_1.PNG" style="border: #00008B 1px solid;"/></p>
-        </ol>
-          <p>Information on how to interact with each visualization can be found at <a href="manual.html">manual</a> page.</p>
-
-          <h4 class="sectionTitle">2.5 Upload Envelope data</h4> 
-          <p>Annotation on isotopic envelopes can be added to the spectra graphs by running TopFD or manually uploading msalign files from local drive. </p>
-          <h4 class="sectionTitle">2.5.1 Run TopFD</h4> 
-          <ol class="textList">
-            <li>Click "TopFD" in the top right corner of the visualization page.</li>
-            <p><img class="small-image" src="public/images/topfd_1.png" style="border: #00008B 1px solid;"/></p>
-            <li>Make changes to the parameters if needed, and click "submit" button.</li>
-            <p><img class="small-image" src="public/images/topfd_2.PNG" style="border: #00008B 1px solid;"/></p>
-          </ol>
-          <h4 class="sectionTitle">2.5.2 Manual upload</h4> 
-          <ol class="textList">
-            <li>Click "Upload" in the top right corner of the visualization page.</li>
-            <p><img class="small-image" src="public/images/manual_1.png" style="border: #00008B 1px solid;"/></p>
-            <li>Click "Choose file" to locate ms1 and ms2 msalign files generated by TopFD, and click "upload" button.</li>
-            <p><img class="small-image" src="public/images/msalign_1.PNG" style="border: #00008B 1px solid;"/></p>
-            <li>After envelope data is processed, isotopic envelope annotations are added to the spectra graphs. A table containing the envelope data is also generated.</li>
-            <p><img class="small-image" src="public/images/msalign_2.PNG" style="border: #00008B 1px solid;"/></p>
-          </ol>
-
-          <h4 class="sectionTitle">2.6 Upload feature data</h4> 
-          <ol class="textList">
-            <li>Click "Upload" in the top right corner of the visualization page.</li>
-            <p><img class="small-image" src="public/images/manual_1.png" style="border: #00008B 1px solid;"/></p>
-            <li>Click "Choose file" to locate a mzrt csv file generated by TopFD, and click "upload" button.</li>
-            <p><img class="small-image" src="public/images/mzrt_1.PNG" style="border: #00008B 1px solid;"/></p>
-            <li>After mzrt data is processed, annotations for each feature (dotted rectangles) are added to the 3d graph. When a mouse cursor hovers over a rectangle, a tooltip is displayed with the current feature information.</li>
-            <p><img class="small-image" src="public/images/mzrt_2.PNG" style="border: #00008B 1px solid;"/></p>
-          </ol>
-
-          <h4 class="sectionTitle">2.7 Upload PrSM identification data</h4> 
-          <p>PrSM identification data can be uploaded by running TopPIC or manually uploading identification file from local drive. 
-            When the identification data is added, it is possible to adjust input data such as peaks, ions, PTMs and redraw spectra graphs.</p>
-          <h4 class="sectionTitle">2.7.1 Run TopPIC</h4> 
-          <ol class="textList">
-            <li>Click "TopPIC" in the top right corner of the visualization page.</li>
-            <p><img class="small-image" src="public/images/toppic_1.png" style="border: #00008B 1px solid;"/></p>
-            <li>Upload a protein database file from <code>/var/opt/topmsv</code> by clicking "Choose file."</li>
-            <li>(Optional) When uploading a text file for fixed PTMs, follow the format in this <a href="tutorial_data/fixed_mods.txt">sample file</a>. When uploading a text file for PTM characterization, follow the format in this <a href="tutorial_data/common_mods.txt">sample file</a>.</li>
-            <p><img class="small-image" src="public/images/toppic_2.png" style="border: #00008B 1px solid;"/></p>
-            <li>Make changes to the parameters if needed, and click "submit" button.</li>
-          </ol>
-          <h4 class="sectionTitle">2.7.2 Manual upload</h4> 
-          <ol class="textList">
-            <li>Click "Upload" in the top right corner of the visualization page.</li>
-            <p><img class="small-image" src="public/images/manual_1.png" style="border: #00008B 1px solid;"/></p>
-            <li>Click "Choose file" to locate the protein identification file generated by TopPIC, and click "upload" button.</li>
-            <p><img class="small-image" src="public/images/prsm_1.PNG" style="border: #00008B 1px solid;"/></p>
-          </ol>
-          <h4 class="sectionTitle">2.8 Inspect page</h4> 
-          <ol class="textList">
-            <li>After running TopPIC, click "Inspect" button from the envelope table.</li>
-            <p><img class="small-image" src="public/images/inspect_1.PNG" style="border: #00008B 1px solid;"/></p>
-            <li>Input data are pre-filled using the data from PrSM identification file. Make any changes if necessary, then click "Submit" to display visualizations.</li>
-            <p><img class="small-image" src="public/images/inspect_2.PNG" style="border: #00008B 1px solid;"/></p>
-            <li>A protein sequence with a MS/MS spectra graph, a mono mass graph, a mono mass table, and a theoretical fragment ion mass table appear.</li>
-            <p><img class="small-image" src="public/images/inspect_3.PNG" style="border: #00008B 1px solid;"/></p>
-          </ol>
-          <p>Information on how to interact with each visualization can be found at <a href="manual.html">manual</a> page.</p>
-
-
+</ol>
     </div>
-
   </div>
-
-
 </div>
 
 <script src="lib/jquery-1.7.1.min.js"></script>
