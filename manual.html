@@ -61,7 +61,17 @@
               </li>
               <li>Graph Menus:
                 <ul class="textList">
-                  <li>Text boxes: change the data window by typing in different numbers and then clicking "request" button</li> 
+                  <li>Text boxes: change the data window by typing in different numbers and then clicking "request" button.  
+                    <ul class="textList">
+                      <li> Retention time and m/z: Left text box is the median of a range. Right text box is the size of a range. 
+                  For instance, entering 35 and 5 in the two retention time text boxes will display a retention time range of 30-40 min, which is 5 min lower and higher than the median 35 min. 
+                      </li>
+                      <li>Intensity cutoff threshold: If a value bigger than 0 is entered, peaks that have intensities lower than the entered value will not appear on the view.</li>  
+                    </ul></li> 
+                  <li>Checkboxes:
+                    <ul class="textList">
+                      <li>Intensity auto scaling: When checked, the heights of peaks on current view will be automatically adjusted if they become too high.</li>
+                    </ul></li> 
                   <li>Buttons: 
                     <ul class="textList">
                       <li>Request: redraws the graph using the range in the text boxes.</li>
