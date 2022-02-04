@@ -49,20 +49,14 @@
                     <li>TopPIC Suite Compilation:
                       <ol>
                         <li>This step compiles TopFD and TopPIC, which perform spectral deconvolution and protein identification using the uploaded spectra data.</li>
-                        <li>Go to the folder TopMSV files are unzipped</li>
-                        <li>type <code>mkdir proteomics_cpp</code> to create a new directory. The resulting directory structure would be 
-                          <code>topmsv-linux-[version number]/proteomics_cpp</code></li>
-                        <li>Download the latest release from <a href="https://github.com/toppic-suite/toppic-suite">TopPIC Suite Github repository</a> and place it in the <code>proteomics_cpp</code> directory</li>
+                        <li>Go to the folder TopMSV source files are unzipped.</li>
+                        <li>Download the latest release from <a href="https://github.com/toppic-suite/toppic-suite">TopPIC Suite Github repository</a> and place it in the same directory.</li>
                         <li>Type the following commands to build TopPIC Suite:
                           <pre>
-cd proteomics_cpp
-
 # unzip the TopPic Suite release from the TopPIC Suite repository
 unzip toppic-suite-*.zip                            
 rm toppic-suite-*.zip
-mv toppic-suite-* bin
-
-cd bin
+mv toppic-suite-* proteomics_cpp
 
 # install compiling tools
 sudo apt-get install build-essential cmake
@@ -79,11 +73,14 @@ sudo apt-get install zlib1g-dev \
                      libeigen3-dev \
                      nlohmann-json3-dev
 
-# building
+# building TopFD and TopPIC
+cd proteomics_cpp
 mkdir build
 cd build
 cmake ..
-make topfd && make toppic -j$(nproc)</pre>
+make topfd && make toppic -j$(nproc)
+cd ../bin
+ln -s ../toppic_resources .</pre>
                           </li>
                         </ol>
                       </li>

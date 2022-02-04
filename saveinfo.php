@@ -35,7 +35,7 @@ if ($download_type=="docker") {
 
 $file_name = 'release_files/topmsv-windows-1.0.1.zip';
 if ($download_type=="linux") {
-  header("Location: https://github.com/toppic-suite/topmsv");
+  header("Location: https://github.com/toppic-suite/topmsv/releases");
 }
 
 if (file_exists($file_name)) {
