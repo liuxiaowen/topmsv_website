@@ -42,10 +42,71 @@
       <ol class="textList">
         <li>Download TopMSV from <a href="http://toppic.org/software/topmsv/index.html">Home</a> page and unzip the file.</li>
         <ul class="textList">
-            <li>For Linux
-              <ul class="textList"><li>In the folder TopMSV files are unzipped, use the following command: 
-                <code>./installServer.sh</code></li>
-              </ul>
+            <li><p>For Linux</p>
+              <p><strong>For Linux installation, all 3 steps are necessary for TopMSV to run correctly. Please follow each step in order.</strong></p>
+              <ol class="textList">
+                  <ol>
+                    <li>TopPIC Suite Compilation:
+                      <ol>
+                        <li>This step compiles TopFD and TopPIC, which perform spectral deconvolution and protein identification using the uploaded spectra data.</li>
+                        <li>Go to the folder TopMSV files are unzipped</li>
+                        <li>type <code>mkdir proteomics_cpp</code> to create a new directory. The resulting directory structure would be 
+                          <code>topmsv-linux-[version number]/proteomics_cpp</code></li>
+                        <li>Download the latest release from <a href="https://github.com/toppic-suite/toppic-suite">TopPIC Suite Github repository</a> and place it in the <code>proteomics_cpp</code> directory</li>
+                        <li>Type the following commands to build TopPIC Suite:
+                          <pre>
+cd proteomics_cpp
+
+# unzip the TopPic Suite release from the TopPIC Suite repository
+unzip toppic-suite-*.zip                            
+rm toppic-suite-*.zip
+mv toppic-suite-* bin
+
+cd bin
+
+# install compiling tools
+sudo apt-get install build-essential cmake
+
+# install other dependencies
+sudo apt-get install zlib1g-dev \
+                     libxerces-c-dev \ 
+                     libboost-filesystem-dev \
+                     libboost-program-options-dev \
+                     libboost-system-dev \
+                     libboost-thread-dev \
+                     libboost-iostreams-dev \
+                     libboost-chrono-dev \
+                     libeigen3-dev \
+                     nlohmann-json3-dev
+
+# building
+mkdir build
+cd build
+cmake ..
+make topfd && make toppic -j$(nproc)</pre>
+                          </li>
+                        </ol>
+                      </li>
+                      <li>mzMLReader Compilation: 
+                        <ol>
+                          <li>This step compiles mzMLReader, which parses spectra data from uploaded mzML files.</li>
+                          <li>Enter the commands below after finishing the step 1 TopPIC Suite Compilation</li>
+                        </ol>
+                        <pre style="white-space: pre-line">
+                          cd ../../
+                          cd cpp
+                          mkdir build
+                          <span class="pl-c1">cd</span> build
+                          cmake ..
+                          make -j<span class="pl-s"><span class="pl-pds">$(</span>nproc<span class="pl-pds">)</span></span>
+                        </pre>
+                      </li>
+                      <li>Installation of TopMSV</li>
+                      <ol class="textList"><li>In the folder TopMSV files are unzipped, use the following command: 
+                        <code>./installServer.sh</code></li>
+                      </ol>
+                  </ol>
+              </ol>
             </li>
             <li>For Windows
               <ul class="textList"><li>No installation is needed.</li>
