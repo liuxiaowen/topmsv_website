@@ -35,80 +35,12 @@
 
   <div class="row-fluid" style="font-size:16px">
     <div class="span-12">
-      <p>If you would like to try out TopMSV before installation, you can visit <a href="https://toppic.soic.iupui.edu/">TopMSV website</a> to access full features without installation.</p>
+      <p>To download TopMSV, go to the <a href="http://toppic.org/software/topmsv/index.html">Home</a> page.</p>
       <h3>1 Installation</h3>
-      <!--<p><b>This section only applies to the users who would like to implement their own TopMSV server.
-        All other users (ex: using TopMSV from the <a href="https://toppic.soic.iupui.edu/">TopMSV website</a>) can skip this section and go to <a href="#tutorial_start">Section 3 Usage Guide</a>.</b> </p>-->
       <ol class="textList">
-        <li>Download TopMSV from <a href="http://toppic.org/software/topmsv/index.html">Home</a> page and unzip the file.</li>
         <ul class="textList">
-            <li><p>For Linux</p>
-              <p><strong>For Linux installation, all 3 steps are necessary for TopMSV to run correctly. Please follow each step in order.</strong></p>
-              <ol class="textList">
-                  <ol>
-                    <li>TopPIC Suite Compilation:
-                      <ol>
-                        <li>This step compiles TopFD and TopPIC, which perform spectral deconvolution and protein identification using the uploaded spectra data.</li>
-                        <li>Go to the folder TopMSV source files are unzipped.</li>
-                        <li>Download the latest release from <a href="https://github.com/toppic-suite/toppic-suite">TopPIC Suite Github repository</a> and place it in the same directory.</li>
-                        <li>Type the following commands to build TopPIC Suite:
-                          <pre>
-# unzip the TopPic Suite release from the TopPIC Suite repository
-unzip toppic-suite-*.zip                            
-rm toppic-suite-*.zip
-mv toppic-suite-* proteomics_cpp
-
-# install compiling tools
-sudo apt-get install build-essential cmake
-
-# install other dependencies
-sudo apt-get install zlib1g-dev \
-                     libxerces-c-dev \ 
-                     libboost-filesystem-dev \
-                     libboost-program-options-dev \
-                     libboost-system-dev \
-                     libboost-thread-dev \
-                     libboost-iostreams-dev \
-                     libboost-chrono-dev \
-                     libeigen3-dev \
-                     nlohmann-json3-dev
-
-# building TopFD and TopPIC
-cd proteomics_cpp
-mkdir build
-cd build
-cmake ..
-make topfd && make toppic -j$(nproc)
-cd ../bin
-ln -s ../toppic_resources .</pre>
-                          </li>
-                        </ol>
-                      </li>
-                      <li>mzMLReader Compilation: 
-                        <ol>
-                          <li>This step compiles mzMLReader, which parses spectra data from uploaded mzML files.</li>
-                          <li>Enter the commands below after finishing the step 1 TopPIC Suite Compilation</li>
-                        </ol>
-                        <pre style="white-space: pre-line">
-                          cd ../../
-                          cd cpp
-                          mkdir build
-                          <span class="pl-c1">cd</span> build
-                          cmake ..
-                          make -j<span class="pl-s"><span class="pl-pds">$(</span>nproc<span class="pl-pds">)</span></span>
-                        </pre>
-                      </li>
-                      <li>Installation of TopMSV</li>
-                      <ol class="textList">
-                        <li>After finishing step 2 mzMLReader Compilation, type the following commands:
-                          <pre style="white-space: pre-line">
-                            cd ../../
-                            ./installServer.sh
-                          </pre> 
-                        </li>
-                      </ol>
-                  </ol>
-              </ol>
+            <li>For Linux
+              <ul class="textList"><li>Visit <a href="https://github.com/toppic-suite/topmsv">TopMSV repository</a> for step-by-step instructions.</li></ul>
             </li>
             <li>For Windows
               <ul class="textList"><li>No installation is needed.</li>
@@ -160,7 +92,7 @@ ln -s ../toppic_resources .</pre>
         </p>
   
         <p>Click <a href="filedownload.php?filename=./tutorial_data/uniprot-st.fasta">here</a>
-          to download the protein database and save it in <code>/var/opt/topmsv</code>.</p>
+          to download the protein database and save it in a local directory, for instance, <code>/home/alex/topmsv_data</code>.</p>
   
         <h4 class="sectionTitle">3.3 Upload Data</h4>
         <ol class="textList">
@@ -169,7 +101,7 @@ ln -s ../toppic_resources .</pre>
           <li>Sign in using one of the existing Google credentials.</li>
           <li>Click "Upload" from the navigation bar.</li>
           <p><img class="small-image" src="public/images/index_2.PNG" style="border: #00008B 1px solid;"/></p>
-          <li>Type "st_1" as project name and click "Select mzML file" to upload a mzML file from <code>/var/opt/topmsv</code>.</li>
+          <li>Type "st_1" as project name and click "Select mzML file" to upload a mzML file from the directory containing the downloaded dataset, for instance, <code>/home/alex/topmsv_data</code>.</li>
           <li>Click "Submit."</li>
           <p><img class="small-image" src="public/images/upload_1.PNG" style="border: #00008B 1px solid;"/></p>
         </ol>
