@@ -5,11 +5,10 @@
   <title>TopMSV</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="author" content="xiaowen" >
 
   <link href="lib/bootstrap.css" rel="stylesheet">
-  <link href="public/css/style.css" rel="stylesheet">
   <link href="lib/bootstrap-responsive.css" rel="stylesheet">
+  <link href="public/css/style.css" rel="stylesheet">
   <link rel="shortcut icon" href="toppic.ico">
 </head>
 
@@ -24,6 +23,7 @@
         <div class="container">
           <ul class="nav">
             <li><a href="index.html">Home</a></li>
+            <li><a href="download.html">Download</a></li>
             <li><a href="manual.html">Manual</a></li>
             <li><a href="tutorial.html">Tutorial</a></li>
             <li><a href="contact.html">Contact</a></li>
@@ -35,91 +35,68 @@
 
   <div class="row-fluid" style="font-size:16px">
     <div class="span-12">
-      <h3>1 Download TopMSV Server</h3>
+      <p> In this tutorial, we will show how to use the TopMSV Windows server to
+      visualize an LC-MS/MS data set.
+      </p>
+      <h3>1. Download the TopMSV server</h3>
       <ol class="textList">
-        <li>Go to the <a href="http://toppic.org/software/topmsv/index.html">Home</a> page.</li>
-        <li>Choose the download type. 
-          <ul>
-            <li>For Windows: 
-              <ul><li>select "Windows 64-bit zip file"</li></ul>
-            </li>
-            <li>For Linux: 
-              <ul><li>select "Linux Source Code"</li></ul>
-            </li>
-          </ul>  
-        </li>
-        <li>Fill out the registration form, and click "I accept license agreement and download TopMSV" to download TopMSV.</li> 
-        <li>Create a new folder, for instance, <code>C:\Documents\topmsv</code>, and save the zip file to the folder. Extract all the files of the downloaded zip file to the folder <code>C:\Documents\topmsv</code>.</li>
-      <hr>
+        <li>Go to the <a href="http://toppic.org/software/topmsv/index.html">Download</a> page.</li>
+        <li>Choose the download type "Windows 64-bit zip file." </li>
+        <li>Fill out the registration form, and click "I accept license
+          agreement and download TopMSV" to download TopMSV.</li> 
+        <li>Create a new folder <code>C:\topmsv\server</code>,
+          save the zip file to the folder, and unzip the
+          downloaded zip file to the folder
+        <code>C:\topmsv\server</code>.</li>
       </ol>
-      <h3>2 Installation</h3>
-        <ul class="textList">
-            <li>For Linux
-              <ul class="textList"><li>Visit <a href="https://github.com/toppic-suite/topmsv">TopMSV repository</a> for step-by-step instructions.</li></ul>
-            </li>
-            <li>For Windows
-              <ul class="textList"><li>No installation is needed.</li>
-              </ul>
-            </li>
-          </ul>
-        
-      <hr>
-      <h3>3 Start/Stop Server</h3>
-        <p>In the folder TopMSV files are unzipped, for instance, <code>C:\Documents\topmsv</code>: </p>
-        <ul class="textList">
-          <li>For Linux
-            <ul class="textList">
-              <li>Enter <code>./startServer.sh</code> to start TopMSV.
-                
-              </li>
-              <li>Enter <code>./stopServer.sh</code> to stop TopMSV.
-                
-              </li>
-            </ul>
-          </li>
-          <li>For Windows
-            <ul class="textList">
-              <li>Double click <code>startServer.bat</code> to start TopMSV.</li>
-              <li>Double click <code>stopServer.bat</code> to stop TopMSV.</li>
-            </ul>
-          </li>
-        </ul>
-		<!--<p>This is the end of TopMSV installation. You may take additional steps at the end of this page to enable optional features.</p>-->
-    <hr>
-    <a name="tutorial_start"></a>
-      <h3>4 Usage Guide</h3>
-        <h4 class="sectionTitle">4.1 Top-down MS/MS Dataset</h4>
-        <p>
-          In the MS experiment, the protein extract of S. typhimurium was reduced with dithiothreitol and alkylated with iodoacetamide.
-          The protein mixture was first separated by gas-phase fractionation, resulting in 7 fractions.
-          Each fraction was separated by an HPLC system coupled to an LTQ-Orbitrap mass spectrometer (Thermo Fisher Scientific).
-          MS and MS/MS spectra were collected at a resolution of 60,000 and 30,000, respectively. In this tutorial, we use only the data file
-          of one fraction, which is converted to mzML file (st_1.mzML) using msconvert from ProteoWizard.
+      <h3>2. Start the TopMSV server</h3>
+        <p>Double click the file <code>startServer.bat</code> in the folder
+        <code>C:\topmsv\server</code> to start the server.
         </p>
-        <p>Click <a href="filedownload.php?filename=./tutorial_data/st_1.mzML">here</a>
-        to download the dataset, save it in a local directory, for instance, <code>C:\Documents\topmsv_data</code> and unzip it.</p>
+      <h3>3. LC-MS/MS data visualization </h3>
+        <h4 class="sectionTitle">3.1 Top-down MS/MS Dataset</h4>
+        <p>
+          In the MS experiment, the protein extract of S. typhimurium was
+          reduced with dithiothreitol and alkylated with iodoacetamide.  The
+          protein mixture was first separated by gas-phase fractionation,
+          resulting in 7 fractions.  Each fraction was separated by an HPLC
+          system coupled to an LTQ-Orbitrap mass spectrometer (Thermo Fisher
+          Scientific).  MS and MS/MS spectra were collected at a resolution of
+          60,000 and 30,000, respectively. In this tutorial, we use only the
+          LC-MS/MS data file of the first fraction. The raw file was converted
+          to an mzML file (st_1.mzML) using msconvert in ProteoWizard.
+        </p>
+        <p>Click <a
+                   href="filedownload.php?filename=./tutorial_data/st_1.mzML">here</a>
+        to download the data set, save it into a local folder
+        <code>C:\topmsv\data</code>, and unzip it.</p>
 
-        <h4 class="sectionTitle">4.2 Protein sequence database</h4>
+        <h4 class="sectionTitle">3.2 Protein sequence database</h4>
         <p>A S. typhimurium <a href="https://www.uniprot.org/uniprot/?query=proteome:UP000001014%20reviewed:yes">proteome database</a>
           of 1,799 proteins was downloaded from the UniProt database.
         </p>
   
         <p>Click <a href="filedownload.php?filename=./tutorial_data/uniprot-st.fasta">here</a>
-          to download the protein database and save it in the same directory as the Top-down MS/MS Dataset in 4.1.</p>
+          to download the protein database and save it into the folder 
+          <code>C:\topmsv\data</code>.</p>
   
-        <h4 class="sectionTitle">4.3 Upload Data</h4>
+        <h4 class="sectionTitle">3.3 Upload data</h4>
         <ol class="textList">
-          <li>Click "Sign in" in the top right corner.</li>
+          <li>Open the Google Chrome web browser, type in the web server
+            address <code>http://localhost:: </code> in the address bar, and 
+          click the "Enter" button to go the main webpage of the TopMSV server.</li>
+          <li>Click the "Sign in" button in the top right corner.</li>
           <p><img class="small-image" src="public/images/index_1.PNG" style="border: #00008B 1px solid;"/></p>
-          <li>Sign in using one of the existing Google credentials.</li>
-          <li>Click "Upload" from the navigation bar.</li>
+          <li>Click "Upload" in the navigation bar.</li>
           <p><img class="small-image" src="public/images/index_2.PNG" style="border: #00008B 1px solid;"/></p>
-          <li>Type "st_1" as project name and click "Select mzML file" to upload a mzML file from the directory containing the downloaded dataset, for instance, <code>C:\Documents\topmsv_data</code>.</li>
-          <li>Click "Submit."</li>
+          <li>Type "st_1" as the project name, click the "Select mzML file"
+            button to select the data file
+            <code>C:\topmsv\data\st_1.mzML</code>,
+            and click the "Submit" button to update the data file.</li>
           <p><img class="small-image" src="public/images/upload_1.PNG" style="border: #00008B 1px solid;"/></p>
         </ol>
       
-        <h4 class="sectionTitle">4.4 View Visualization Results</h4>
+        <h4 class="sectionTitle">3.4 Data visualization</h4>
         <ol class="textList">
           <li>Click "My project" in the project in the table in the main page. </li>
           <p><img class="small-image" src="public/images/index_3.PNG" style="border: #00008B 1px solid;"/></p>
@@ -128,16 +105,16 @@
         </ol>
           <p>Information on how to interact with each visualization can be found at <a href="manual.html">manual</a> page.</p>
 
-          <h4 class="sectionTitle">4.5 Upload Envelope data</h4> 
+          <h4 class="sectionTitle">3.5 Add deconvolution results</h4> 
           <p>Annotation on isotopic envelopes can be added to the spectra graphs by running TopFD or manually uploading msalign files from local drive. </p>
-          <h4 class="sectionTitle">4.5.1 Run TopFD</h4> 
+          <h4 class="sectionTitle">3.5.1 Run TopFD</h4> 
           <ol class="textList">
             <li>Click "TopFD" in the top right corner of the visualization page.</li>
             <p><img class="small-image" src="public/images/topfd_1.png" style="border: #00008B 1px solid;"/></p>
             <li>Make changes to the parameters if needed, and click "submit" button.</li>
             <p><img class="small-image" src="public/images/topfd_2.PNG" style="border: #00008B 1px solid;"/></p>
           </ol>
-          <h4 class="sectionTitle">4.5.2 Manual upload</h4> 
+          <h4 class="sectionTitle">3.5.2 Upload deconvolution results</h4> 
           <ol class="textList">
             <li>Click "Upload" in the top right corner of the visualization page.</li>
             <p><img class="small-image" src="public/images/manual_1.png" style="border: #00008B 1px solid;"/></p>
@@ -147,7 +124,7 @@
             <p><img class="small-image" src="public/images/msalign_2.PNG" style="border: #00008B 1px solid;"/></p>
           </ol>
 
-          <h4 class="sectionTitle">4.6 Upload feature data</h4> 
+          <h4 class="sectionTitle">3.6 Upload feature data</h4> 
           <ol class="textList">
             <li>Click "Upload" in the top right corner of the visualization page.</li>
             <p><img class="small-image" src="public/images/manual_1.png" style="border: #00008B 1px solid;"/></p>
@@ -157,10 +134,10 @@
             <p><img class="small-image" src="public/images/mzrt_2.PNG" style="border: #00008B 1px solid;"/></p>
           </ol>
 
-          <h4 class="sectionTitle">4.7 Upload PrSM identification data</h4> 
+          <h4 class="sectionTitle">3.7 Upload PrSM identification data</h4> 
           <p>PrSM identification data can be uploaded by running TopPIC or manually uploading identification file from local drive. 
             When the identification data is added, it is possible to adjust input data such as peaks, ions, PTMs and redraw spectra graphs.</p>
-          <h4 class="sectionTitle">4.7.1 Run TopPIC</h4> 
+          <h4 class="sectionTitle">3.7.1 Run TopPIC</h4> 
           <ol class="textList">
             <li>Click "TopPIC" in the top right corner of the visualization page.</li>
             <p><img class="small-image" src="public/images/toppic_1.png" style="border: #00008B 1px solid;"/></p>
@@ -169,14 +146,14 @@
             <p><img class="small-image" src="public/images/toppic_2.png" style="border: #00008B 1px solid;"/></p>
             <li>Make changes to the parameters if needed, and click "submit" button.</li>
           </ol>
-          <h4 class="sectionTitle">4.7.2 Manual upload</h4> 
+          <h4 class="sectionTitle">3.7.2 Manual upload</h4> 
           <ol class="textList">
             <li>Click "Upload" in the top right corner of the visualization page.</li>
             <p><img class="small-image" src="public/images/manual_1.png" style="border: #00008B 1px solid;"/></p>
             <li>Click "Choose file" to locate the protein identification file generated by TopPIC, and click "upload" button.</li>
             <p><img class="small-image" src="public/images/prsm_1.PNG" style="border: #00008B 1px solid;"/></p>
           </ol>
-          <h4 class="sectionTitle">4.8 Inspect page</h4> 
+          <h4 class="sectionTitle">3.8 Inspect page</h4> 
           <ol class="textList">
             <li>After running TopPIC, click "Inspect" button from the envelope table.</li>
             <p><img class="small-image" src="public/images/inspect_1.PNG" style="border: #00008B 1px solid;"/></p>
@@ -187,55 +164,6 @@
           </ol>
           <p>Information on how to interact with each visualization can be found at <a href="manual.html">manual</a> page.</p>
           <hr>
-          <h3>5 Optional Setup for Advanced Users</h3>
-      		<h4><b>Optional</b> setup to enable user authentication</h4>
-		<ol class="textList">
-        <li>Create <a href="https://support.google.com/googleapi/answer/6158849?hl=en">Google OAuth 2.0 credentials</a> and enter the credentials in auth.js file: 
-          <pre>
-#auth.js file
-...
-passport.use(new GoogleStrategy({
-clientID: "<b>ENTER YOUR CREDENTIALS HERE</b>",
-clientSecret: "<b>ENTER YOUR CREDENTIALS HERE</b>",
-callbackURL: 'http://localhost:8443/auth/google/callback'
-}, (token, refreshToken, profile, done) => {
-    return done(null, {
-      profile: profile,
-      token: token
-    });
-}));
-          </pre>
-        </li>
-		<li>Open config.json file and set "authentication" to true</li>
-		</ol>
-		<h4><b>Optional</b> setup to enable email notification</h4>
-		<ol class="textList">
-        <li>Enter server and email address which will send the notification emails to the users:
-        <pre>
-#nodemailer-auth.js file
-const transport = nodemailer.createTransport({
-  host: <b>HOSTNAME</b>, // server address
-  secureConnection: false, // TLS requires secureConnection to be false
-  port: 587, // port for secure SMTP
-  tls: {
-    ciphers:'SSLv3'
-  },
-  auth: {
-    user: <b>USERNAME</b>,
-    pass: <b>PW</b>
-    }
-  });
-        
-const message = {
-  from: <b>YOUR_EMAIL</b>,
-  to: 'default@gmail.com',         // List of recipients
-  subject: 'Default Subject', // Subject line
-  text: 'Default text' // Plain text body
-};
-        </pre>
-        </li>
-		<li>Open config.json file and set "sendEmail" to true</li>
-        <br>
 </ol>
     </div>
   </div>
@@ -280,10 +208,6 @@ const message = {
         }, 500);
       }, 200);
     }
-
-
 </script>
-
-
 </body>
 </html>

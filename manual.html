@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>TopMSV - A Web-Based Tool for Top-Down Mass Spectrometry Data Visualization</title>
+<title>TopMSV</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
-<meta name="author" content="xiaowen" >
 
 <link href="lib/bootstrap.css" rel="stylesheet">
-<link href="public/css/style.css" rel="stylesheet">
 <link href="lib/bootstrap-responsive.css" rel="stylesheet">
+<link href="public/css/style.css" rel="stylesheet">
 <link rel="shortcut icon" href="toppic.ico">
 </head>
 
@@ -23,6 +22,7 @@
         <div class="container">
           <ul class="nav">
             <li><a href="index.html">Summary</a></li>
+            <li><a href="download.html">Download</a></li>
             <li><a href="manual.html">Manual</a></li>
             <li><a href="tutorial.html">Tutorial</a></li>
             <li><a href="contact.html">Contact</a></li>
@@ -34,92 +34,112 @@
 
   <div class="row-fluid" style="font-size:16px">
     <div class="span-12">
-      <h3 class="sectionTitle">1 Retention time-intensity graph</h3>
-          <p>This graph shows the liquid chromatogram of the data. 
-            The x axis of the view is the retention time in minutes, and y axis is the normalized sum 
-            of the peak intensities of detected precursor ions (range from 0% to 100%). </p>
-            <ul class="textList">
-              <li>Interactions:
-                <ul class="textList">
-                  <li>Select retention time: move a mouse cursor over the graph and click the vertical line that appears on the graph.
-                    Then the 3D graph below is redrawn to show the peaks around the selected retention time. </li>
-                  <li>Change current scan: type in the scan number in the text box above this graph to change the scan data that is highlighted in 3D graph and is plotted in the two spectra views in the lower part of the webpage.</li>
-                </ul>
-              </li>
-            </ul>
-            <p><img src="public/images/graph_1_1.PNG" style="border: #00008B 1px solid;"/></p>
+      <h3 class="sectionTitle">1. The total ion current chromotogram</h3>
+      <p><img src="public/images/graph_1_1.PNG" style="border: #00008B 1px solid;"/></p>
+      <p>This view shows the total ion current chromatogram of an LC-MS/MS data. 
+      The <i>x</i> axis represents retention time in minutes and the <i>y</i> axis represents
+      the sum of all peak intensities being detected at a time point. </p>
+      <h4>Operations:</h4>
+      <ul class="textList">
+        <li><b>Select retention time</b>: move the mouse pointer to a
+          retention time and click the left button of the mouse.  
+        </li> 
+        <li><b>Change the current scan</b>: input a scan
+          number in the text box above the chromotogram and click "request."
+        </li>
+      </ul>
 
-            <h3 class="sectionTitle">2 LC-MS 3D graph</h3>
-            <p>This graph is a view of LC-MS data with three dimensions: x: m/z value, y: retention time, and z: peak intensity.</p>
-            <ul class="textList">
-              <li>Mouse Interactions: 
-                <ul class="textList">
-                  <li>Drag: use a left-button of the mouse to change the data window.</li>
-                  <li>Zoom: use a mouse wheel to change the data window. When you also hold a ctrl key in the keyboard while using a mouse wheel, you can increase/decrease the heights of peaks.</li>
-                  <li>Rotate: click and hold a right-button of the mouse to rotate the graph. When the direction of z-axis becomes negative to the viewer, the graph is switched to 2D view.</li>
-                </ul>
-              </li>
-              <li>Graph Menus:
-                <ul class="textList">
-                  <li>Text boxes: change the data window by typing in different numbers and then clicking "request" button.  
-                    <ul class="textList">
-                      <li> Retention time and m/z: Left text box is the median of a range. Right text box is the size of a range. 
-                  For instance, entering 35 and 5 in the two retention time text boxes will display a retention time range of 30-40 min, which is 5 min lower and higher than the median 35 min. 
-                      </li>
-                      <li>Intensity cutoff threshold: If a value bigger than 0 is entered, peaks that have intensities lower than the entered value will not appear on the view.</li>  
-                    </ul></li> 
-                  <li>Checkboxes:
-                    <ul class="textList">
-                      <li>Intensity auto scaling: When checked, the heights of peaks on current view will be automatically adjusted if they become too high.</li>
-                    </ul></li> 
-                  <li>Buttons: 
-                    <ul class="textList">
-                      <li>Request: redraws the graph using the range in the text boxes.</li>
-                      <li>Save Graph: downloads 3D graph as a png file.</li>
-                      <li>Sign + -: makes the graph bigger/smaller. </li>
-                      <li>Full Screen: displays the graph in full screen.</li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <p><img src="public/images/graph_2.PNG" style="border: #00008B 1px solid;"/></p>
+      <h3 class="sectionTitle">2. A 3D view of LC-MS data</h3>
+      <p><img src="public/images/graph_2.PNG" style="border: #00008B 1px solid;"/></p>
+      <p>In the 3D view of LC-MS data, the <i>x</i> axis represents the m/z
+      value, the <i>y</i> axis represents the retention time, and the <i>z</i>
+      axis represents the peak intensity. This view provides visualization
+      functions of zooming, dragging, and intensity scaling.
+      </p>
+      <h4>Basic operations</h4>
+      <ul class="textList">
+        <li><b>Dragging</b>: hold the left-button of the mouse down and move the
+          mouse to drag the view.</li>
+        <li><b>Zooming of the m/z value and retention time</b>: place the mouse
+          pointer in the view and use the mouse wheel to zoom in and out the
+          view.</li>
+        <li><b>Zooming of the m/z value</b>: place the mouse pointer below or
+          above the view and use the mouse wheel to zoom in and out the m/z
+          value of the view.</li>
+        <li><b>Zooming of the retention time</b>: place the mouse pointer left
+          to or right to the view and use the mouse wheel to zoom in and out the
+          retention time of the view.</li>
+        <li><b>Intensity scaling</b>: press a CTRL key in the keyword and use the mouse
+          wheel to scale peak intensities.</li>
+        <li><b>Rotating</b>: hold the right button of the mouse and move the mouse to 
+          rotate the view. </li>
+        <li><b>Going to a specific position</b>: input the specific m/z value
+          and retention time in the text boxes above the view and click the
+          "request" button. </li>
+      </ul>
 
-            <h3 class="sectionTitle">3 Spectra graphs</h3>
-            <p>The first graph shows the peaks reported by spectral deconvolution in a mass spectrum. The second graph shows the fragment peaks in MS/MS data. Annotation for isotopic envelopes are added to the graph after TopFD is run or envelope files are uploaded.</p> 
-            <ul class="textList">
-              <li>Mouse Interactions:
-                <ul class="textList">
-                  <li>Drag: use a left-button of the mouse to change the data window.</li>
-                  <li>Zoom: use a mouse wheel on x-axis or y-axis to change the m/z or intensity range.</li>
-                </ul>
-              </li>
-              <li>Buttons: 
-                <ul class="textList">
-                  <li>Prev/Next: display peaks from prev/next scan</li>
-                  <li>Precursor Ion m/z: refocus the first graph to show the selected precursor ion.</li>
-                </ul>
-              </li>
-            </ul>
-            <p><img src="public/images/graph_3.PNG" style="border: #00008B 1px solid;"/></p>
+      <h4>View settings</h4>
+      <ul class="textList">
+        <li><b>Filtering out low intensity peaks</b>: input an intensity cutoff
+          value in the text box "Intensity cutoff value."</li>
+        <li><b>Auto scaling peak intensities</b>: when the check box is checked, 
+          the peak intensities of the view will be automatically adjusted based
+          on the highest peak in the view.</li>
+      </ul>
+
+      <h4>Other functions</h4>
+      <ul class="textList">
+        <li><b>Save Graph</b>: save the 3D view to an image file.</li>
+        <li><b>Adjust view size</b>: use the "+" and "-" buttons to increase or
+          decrease the view size. </li>
+        <li><b>Full Screen</b>: use the "Full screen" button to show the view in full screen.</li>
+      </ul>
+
+      <h3 class="sectionTitle">3. 2D views of mass spectra</h3> 
+      <p><img src="public/images/graph_3.PNG" style="border: #00008B 1px solid;"/></p>
+      <p>The top view shows peaks in an MS1 spectrum and the bottom view shows
+      peaks in an MS/MS spectrum. When spectral deconvolution results are
+      available, circles in the views represent the positions of peaks in
+      theoretical isotopic envelopes and circles for one envelope are shown with
+      the same color.</p>
+
+      <h4>Operations</h4>
+      <ul class="textList">
+        <li><b>Dragging</b>: hold the left-button of the mouse down and move the
+          mouse to drag the view.</li>
+        <li><b>Zooming of the <i>x</i> axis</b>: place the mouse pointer below the <i>x</i>-axis 
+          and use the mouse wheel to zoom in and out the <i>x</i> axis.</li>
+        <li><b>Scaling peak intensities</b>: place the mouse pointer above the <i>x</i>-axis 
+          and use the mouse wheel to scale peak intensities.</li>
+        <li><b>Previous or next MS1 spectrum</b>: click the "previous" or "next"
+          button to show the previous or next MS1 spectrum.</li>
+        <li><b>Select an MS/MS spectrum</b>: When several precursor ions in the
+          current MS1 spectrum are selected for MS/MS analyses, click a
+          precursor m/z value (above the bottom view) to show its corresponding 
+          MS/MS spectrum.</li>
+      </ul>
             
-            <h3 class="sectionTitle">4 Mono mass graph</h3>
-            <p>This graph shows deconvoluted monoisotopic masses in an MS/MS spectrum and its matched proteoform.</p>
-            <p>At the top, an identified proteoform sequence and its theoretical fragment masses are displayed; in the middle, the monoisotopic masses of each envelope are plotted; at the bottom, the m/z errors between matched theoretical and experimental masses are drawn in an error plot.</p>
-            
-            <ul class="textList">
-              <li>Interactions:
-                <ul class="textList">
-                  <li>Drag: use a left-button of the mouse to change the data window.</li>
-                  <li>Zoom: use a mouse wheel on x-axis or y-axis to change the mass or intensity range.</li>
-                </ul>
-              </li>
-            </ul>
+      <h3 class="sectionTitle">4. A view of monoisotopic mass graphs</h3>
+      <p><img src="public/images/mass_1.PNG" style="border: #00008B 1px solid;"/></p>
+      <p>This view shows deconvoluted monoisotopic masses in an MS/MS spectrum
+      and its matched proteoform.</p>
+      <p>At the top, the identified proteoform sequence and its theoretical
+      fragment masses are displayed; in the middle, the deconvoluted monoisotopic masses
+      of the MS/MS spectrum are plotted; at the bottom, the m/z errors between matched
+      theoretical and experimental masses are drawn in an error plot.</p>
 
-            <p><img src="public/images/mass_1.PNG" style="border: #00008B 1px solid;"/></p>
+      <h4>Operations</h4>
+      <ul class="textList">
+        <li><b>Dragging</b>: hold the left-button of the mouse down and move the
+          mouse to drag the view.</li>
+        <li><b>Zooming of the <i>x</i> axis</b>: place the mouse pointer below the <i>x</i>-axis 
+          and use the mouse wheel to zoom in and out the <i>x</i> axis.</li>
+        <li><b>Scaling peak intensities</b>: place the mouse pointer above the <i>x</i>-axis 
+          and use the mouse wheel to scale peak intensities.</li>
+      </ul>
+    </div>
   </div>
 </div>
-<script src="assets/js/jquery-1.7.1.min.js"></script>
 
 </body>
 </html>
